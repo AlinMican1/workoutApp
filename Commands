@@ -1,0 +1,3 @@
+npm i -g create-next-app - to update version of next js
+npm run dev - run dev server
+npx prisma migrate dev --name init - migrate the new database / update.
