@@ -12,4 +12,4 @@ const globalForPrisma = global as unknown as {
   
   if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma
 
-  export const db = prisma; 
+export const db = prisma; 

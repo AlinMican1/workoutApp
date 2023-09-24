@@ -1,4 +1,4 @@
-import { db } from '@/db';
+import { db } from '@/lib/db';
 import { NextResponse, NextRequest } from "next/server";
 import {hash} from "bcrypt";
 import * as z from 'zod';
