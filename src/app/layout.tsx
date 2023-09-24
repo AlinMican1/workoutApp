@@ -3,6 +3,14 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
+// import { Poppins } from 'next/font/google'
+
+
+// const poppins = Poppins({
+//   weight: ['100','200','300','400','500','600','700','800','900'],
+//   subsets: ['latin'],
+//   display: 'swap',
+// })
 
 export const metadata: Metadata = {
   title: 'Workout App',
