@@ -3,6 +3,7 @@ import React from 'react'
 import { useState } from 'react';
 import {useRouter} from 'next/navigation';
 import { signIn } from 'next-auth/react'
+import Link from 'next/link';
 
 export default function Login () {
 
@@ -109,6 +110,11 @@ return (
                       <div className="flex-grow border-t border-white"></div>
                       <span className="flex-shrink mx-4 text-white">Or</span>
                       <div className="flex-grow border-t border-white"></div>
+                    </div>
+
+                    <div className='flex'>
+                      <p>Don't have an account?</p>
+                      <Link className=" px-3 underline text-yellow hover:text-sky-700"href='/register'>Sign up</Link>  
                     </div>
                 </div>
             </div>

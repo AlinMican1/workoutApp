@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { headers } from "next/headers";
 
 const inter = Inter({ subsets: ['latin'] })
 // import { Poppins } from 'next/font/google'
@@ -22,9 +23,18 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const headersList = headers();
+  const pathname = headersList.get("x-invoke-path") || "";
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-[#27282c] text-white`}>{children}</body>
+      <body className={`${inter.className} bg-[#27282c] text-white`}>{children}
+        {pathname === '/login' || pathname === '/register' ? <>
+        </> :
+          <h1 className='text-white'>Hhihihiih</h1>
+        }
+        
+      
+      </body>
     </html>
   )
 }
