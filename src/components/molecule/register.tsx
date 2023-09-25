@@ -192,12 +192,11 @@ export default function Register(){
                     <span className="flex-shrink mx-4 text-white">Or</span>
                     <div className="flex-grow border-t border-white"></div>
                 </div>
-                <div className='flex'>
-                    <p>Already have an account?</p>
-                    <Link className=" px-3 underline text-yellow hover:text-sky-700"href='/login'>Sign In</Link>
                     
-                    
-                </div>
+                    <div className='flex'>
+                      <p>Already have an account?</p>
+                      <Link className=" px-3 underline text-yellow hover:text-sky-700"href='/login'>Sign In</Link>  
+                    </div>
             
             </div> 
         </div>
