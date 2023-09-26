@@ -32,7 +32,7 @@ export default function RootLayout({
   
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-[#27282c] text-white`}>{children}
+      <body className={`${inter.className} bg-[#27282c] text-white `}>{children}
         {pathname === '/login' || pathname === '/register' ? <>
         </> :
         <div>
