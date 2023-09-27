@@ -142,41 +142,41 @@ export default function Register(){
     
 
     return (
-        <div className='flex flex-col justify-center items-center h-screen'>
-            <h1 className='text-white text-center font-bold text-4xl'>Register Account</h1>
-            <div className='flex flex-col justify-center items-center text-white w-[450px] h-[700px] bg-[#3F4147] my-5 rounded-md shadow-2xl'>
+        <div className='flex flex-col justify-center items-center  h-[97vh]'>
+            <h1 className='text-white text-center font-bold text-lg'>Register Account</h1>
+            <div className='flex flex-col justify-center items-center text-white my-3 rounded-md '>
                 <form onSubmit={onSubmit}>
                     
                     <div className='flex flex-col mt-3 mb-1'>
-                    <label  className='text-white font-bold'>Email</label>
+                    <label  className='text-white text-semibold text-base'>Email</label>
                     <input className={`p-2 w-80 rounded border-2 border-[#424549] focus:outline-none focus:border-indigo-500 text-black ${
                         emailError ? 'border-red-500 focus:border-red-500' : '' }`}
                     name='email' autoComplete='email' placeholder='Email' value={email} type='text' onChange={(e) => setEmail(e.target.value) }/>
-                     {emailError && <span className='text-red-600 font-bold text-sm p-1'>{emailErrorMsg}</span>}
+                     {emailError && <span className='text-red-600 font-bold text-sm p-1 mt-0'>{emailErrorMsg}</span>}
                     </div> 
                     
                     <div className='flex flex-col mt-3 mb-1'>
-                    <label  className='text-white font-bold'>Username</label>
+                    <label  className='text-white text-semibold text-base'>Username</label>
                     <input className={`p-2 w-80 rounded border-2 border-[#424549] focus:outline-none focus:border-indigo-500 text-black ${
                         nameError? 'border-red-500 focus:border-red-500' : '' }`}
                         name='name' placeholder='Username' value={username} type='text' onChange={(e) => setName(e.target.value) }/>
-                        { nameError && <span className='text-red-600 font-bold text-sm p-1'>{nameErrorMsg}</span>}
+                        { nameError && <span className='text-red-600 font-bold text-sm p-1 mt-0'>{nameErrorMsg}</span>}
                     </div> 
 
                     <div className='flex flex-col mt-3 mb-1'>
-                    <label  className='text-white font-bold'>Password</label>
+                    <label  className='text-white text-semibold text-base'>Password</label>
                     <input className={`p-2 w-80 rounded border-2 border-[#424549] focus:outline-none focus:border-indigo-500 text-black ${
                         passwordError ? 'border-red-500 focus:border-red-500' : '' }`}
                         name='password' placeholder='Password' value={password} type='password' onChange={(e) => setPassword(e.target.value) }/>
-                        { passwordError && <span className='text-red-600 font-bold text-sm p-1'>{passwordErrorMsg}</span>}
+                        { passwordError && <span className='text-red-600 font-bold text-sm p-1 mt-0'>{passwordErrorMsg}</span>}
                     </div>
 
                     <div className='flex flex-col mt-3 mb-1'>
-                    <label  className='text-white font-bold'>Confirm Password</label>
+                    <label  className='text-white text-semibold text-base'>Confirm Password</label>
                     <input className={`p-2 w-80 rounded border-2 border-[#424549] focus:outline-none focus:border-indigo-500 text-black ${
                         password2Error ? 'border-red-500 focus:border-red-500' : '' }`}
                         name='password' placeholder='Confirm Password' value={password2} type='password' onChange={(e) => setPassword2(e.target.value) }/>
-                        { password2Error && <span className='text-red-600 font-bold text-sm p-1'>{password2ErrorMsg}</span>}
+                        { password2Error && <span className='text-red-600 font-bold text-sm p-1 mt-0'>{password2ErrorMsg}</span>}
                     </div>
                     
                     <div className='flex flex-col mt-5 mb-3'>

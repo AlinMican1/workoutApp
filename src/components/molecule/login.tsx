@@ -75,13 +75,13 @@ const onSubmit = async (e: React.FormEvent) =>{
 }
  
 return (
-    <div className='flex flex-col justify-center items-center h-screen'>
-            <h1 className='text-white text-center font-bold text-4xl'>Sign in</h1>
-            <div className='flex flex-col justify-center items-center text-white w-[450px] h-[700px] bg-[#3F4147] my-5 rounded-md shadow-2xl'>
+    <div className='flex flex-col items-center justify-center h-[97vh]'>
+            <h1 className='text-white text-center font-bold text-lg'>Sign in</h1>
+            <div className='flex flex-col justify-center items-center text-white my-5 rounded-md '>
                 <form onSubmit={onSubmit}>
                     
                     <div className='flex flex-col mt-3 mb-1'>
-                    <label  className='text-white font-bold'>Email</label>
+                    <label  className='text-white text-semibold text-base'>Email</label>
                     <input className={`p-2 w-80 rounded border-2 border-[#424549] focus:outline-none focus:border-indigo-500 text-black ${
                         emailError ? 'border-red-500 focus:border-red-500' : '' }`}
                     name='email' autoComplete='email' placeholder='Email' value={email} type='text' onChange={(e) => setEmail(e.target.value) }/>
@@ -89,7 +89,7 @@ return (
                     </div> 
                     
                     <div className='flex flex-col mt-3 mb-1'>
-                    <label  className='text-white font-bold'>Password</label>
+                    <label  className='text-white text-semibold text-base'>Password</label>
                     <input className={`p-2 w-80 rounded border-2 border-[#424549] focus:outline-none focus:border-indigo-500 text-black ${
                         passwordError? 'border-red-500 focus:border-red-500' : '' }`}
                         name='password' placeholder='Password' value={password} type='password' onChange={(e) => setPassword(e.target.value) }/>
