@@ -1,11 +1,18 @@
 import React from 'react'
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { AddWorkoutPlan } from '@/components/molecule/addWorkoutPlan'
-export default async function WorkoutPlanPage() {
-    //const session = await getServerSession(authOptions)
+import AddWorkoutPlan from '@/components/molecule/addWorkoutPlan'
 
+
+import { getServerSession } from "next-auth/next"
+import { authOptions } from '@/lib/auth';
+import Provider from '@/lib/client-provider';
+
+export default async function WorkoutPlanPage() {
+    
+    const session = await getServerSession(authOptions)
     return (
+        <Provider session={session}>
         <div className=''>
             <div className= "">
                 <h1 className='p-3 text-lg font-semibold ' >
@@ -16,6 +23,7 @@ export default async function WorkoutPlanPage() {
             </div>
         
         </div>
+        </Provider>
         
   )
 }

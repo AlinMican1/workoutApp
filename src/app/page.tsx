@@ -9,11 +9,12 @@ export default async function Home() {
   
   return (
     <div >  
-      <h1 className="text-lg font-bold p-3">
+      <h1 className="text-lg font-bold px-3 pt-3">
         
         <DateTime />{session?.user.username}
-       
+
       </h1>
+      <hr className=" my-2 mx-3"></hr>
       
       {session?.user ? (<div>
        

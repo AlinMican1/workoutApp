@@ -16,12 +16,12 @@ export const ButtonNavBar: React.FC<ButtonConfig> = ({btnText,btnColor, onclick,
     className= { `${btnColor} 
     + flex relative text-[14px] 
     min-h-[32px]  rounded rounded-md flex-col  
-    hover:bg-indigo-500  items-center duration-150 ` } {...props} > 
+    hover:bg-indigo-500  items-center duration-150` } {...props} > 
     <div className=''>
     {children}
     </div>
     <div>
-    <span className='text-black'>{btnText}</span>
+    <span className='text-textColor'>{btnText}</span>
     </div>
     
     </button>

@@ -142,7 +142,7 @@ export default function Register(){
     
 
     return (
-        <div className='flex flex-col justify-center items-center  h-screen'>
+        <div className='flex flex-col justify-center items-center  h-[97vh]'>
             <h1 className='text-white text-center font-bold text-lg'>Register Account</h1>
             <div className='flex flex-col justify-center items-center text-white my-3 rounded-md '>
                 <form onSubmit={onSubmit}>

@@ -17,7 +17,7 @@ export const DateTime = () => {
         }
       }, []);
     return (
-    <h1>{dayMessage}</h1>
+    <div>{dayMessage}</div>
   )
 }
 

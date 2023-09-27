@@ -1,12 +1,14 @@
 
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import { headers } from "next/headers";
+// import { Inter } from 'next/font/google'
+
 
 import { NavBar } from '@/components/molecule/navBar';
-
-const inter = Inter({ subsets: ['latin'] })
+import { getServerSession } from "next-auth/next"
+import { authOptions } from '@/lib/auth';
+import Provider from '@/lib/client-provider';
+//const inter = Inter({ subsets: ['latin'] })
 
 // import { Poppins } from 'next/font/google'
 // const poppins = Poppins({
@@ -20,28 +22,28 @@ export const metadata: Metadata = {
   
 }
 
-export default function RootLayout({
+export default  function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   
-  //Check the pathname so it doesn't add layout to register and login page
-  const headersList = headers();
-  const pathname = headersList.get("x-invoke-path") || "";
-  
+  //const session = await getServerSession(authOptions)
+  //${inter.className}
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-[#27282c] text-white `}>{children}
-        {pathname === '/login' || pathname === '/register' ? <>
-        </> :
+      <body className={` bg-backgroundColor text-white border m-2 rounded-xl border-darkgray  `} >
+        {/* <Provider session={session}> */}
+        {children}
+        {/* </Provider> */}
         <div>
           <NavBar />
-          </div>
-        }
+        </div>
+        
         
       
       </body>
+      
     </html>
   )
 }

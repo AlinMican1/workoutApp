@@ -75,9 +75,9 @@ const onSubmit = async (e: React.FormEvent) =>{
 }
  
 return (
-    <div className='flex flex-col justify-center items-center h-screen'>
+    <div className='flex flex-col items-center justify-center h-[97vh]'>
             <h1 className='text-white text-center font-bold text-lg'>Sign in</h1>
-            <div className='flex flex-col justify-center items-center text-white my-5 rounded-md shadow-2xl'>
+            <div className='flex flex-col justify-center items-center text-white my-5 rounded-md '>
                 <form onSubmit={onSubmit}>
                     
                     <div className='flex flex-col mt-3 mb-1'>

@@ -6,13 +6,16 @@ import { faXmark,faHome, faDumbbell , faStar, faBarsStaggered} from '@fortawesom
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { SignOutBtn } from '../atom/authButtons'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
-const Open = () => {
-    document.querySelector('.sidebar')?.classList.toggle('left-[-300px]')
-}
 export const NavBar = () => {
-  return (
-    <div className='bg-white max-h-[4rem] px-6 rounded-t-xl flex fixed bottom-0 left-0 w-full'>
+    const pathname = usePathname();
+
+    if(pathname === '/login' || pathname === '/register'){
+        return;
+    }
+    return (
+    <div className='bg-darkgray max-h-[4rem]  border-t border-specialPink px-6 rounded-t-xl flex fixed bottom-0 left-0 w-full'>
         <div className='w-full'>
             <li className='flex  p-2.5 justify-between'>
             <Link href={'/'}>
@@ -32,11 +35,10 @@ export const NavBar = () => {
                     <FontAwesomeIcon icon={faStar} className='text-yellow-300' />
                 </ButtonNavBar>
             </Link>
-            <Link href={'/'}>
-                <ButtonNavBar btnColor='bg-transparent' btnText = "Personal">
-                    <FontAwesomeIcon icon={faStar} className='text-yellow-300' />
-                </ButtonNavBar>
-            </Link>
+            
+            <div className=''>
+                <SignOutBtn/>
+            </div>
             
 
 
