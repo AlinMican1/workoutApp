@@ -7,6 +7,7 @@ interface InputFieldProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder: string;
     error: boolean;
+    
     errorMessage: string;
   }
 

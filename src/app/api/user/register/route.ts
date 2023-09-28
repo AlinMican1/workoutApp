@@ -19,7 +19,7 @@ export async function POST(req: Request){
         const {email, username, password} = userInputValidation.parse(body);
       
      
-
+        
         //Check if email exists.
         const emailExist = await db.user.findUnique({
            where: {email: email}
@@ -53,7 +53,7 @@ export async function POST(req: Request){
         
         return NextResponse.json({user: rest, message:"User created successfully"}, {status:201});
     }catch(error: any){
-        
+        console.error("Error creating workout plan:", error);
         return NextResponse.json({message:"Something went wrong!"}, {status:500});
     }
     
