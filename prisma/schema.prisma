@@ -22,14 +22,16 @@ model User {
   email    String @unique
   username String @unique
   password String
-  WorkoutPlans WorkoutPlan[]
+  workoutPlans WorkoutPlan[]
 }
 
 model WorkoutPlan {
-  id        String @id @default(uuid())
-  title     String? @default("My workout plan")
+  id        String   @id @default(uuid())
+  title     String   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   plan      User @relation(fields: [planId], references: [id])
   planId    String
+
+  @@index([planId])
 }

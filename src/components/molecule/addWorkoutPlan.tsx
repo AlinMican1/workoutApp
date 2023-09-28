@@ -9,28 +9,73 @@ import { useState } from 'react'
 import { db } from '@/lib/db'
 import InputField from '../atom/inputBox'
 import { useSession } from 'next-auth/react';
+import { Router } from 'next/router'
 
+import { getServerSession } from 'next-auth';
+import { authOptions } from "@/lib/auth";
 
 function AddWorkout (){
     const [title,setTitle] = useState('');
     const [titleError, setTitleError] = useState(false);
     const [titleErrorMsg, setTitleErrorMsg] = useState('');
     const [openModal, setOpenModal] = useState<boolean>(false);
+   
     
+    
+    
+    const session = useSession();
+    
+    if(session.status !== "authenticated"){
+        return null;
+    }
+
     const onSubmit = async (e: React.FormEvent) =>{
         e.preventDefault()
         
-    
-
+        // const userSession = await getServerSession(authOptions);
+        // console.log(userSession);
         if(title === ''){
             setTitleError(true);
             setTitleErrorMsg("Insert a title");
+            setOpenModal(true);
+            
+            
         }
         else{
             setTitleError(false);
             setTitleErrorMsg("");
+            setOpenModal(false);
         }
-        
+        try {
+            const response = await fetch('/api/user/newPlan/Create' ,{
+                method: 'POST',
+                body: JSON.stringify({
+                    title,
+                    email: session.data?.user.email?.toString(),
+                    
+                    
+                }),
+                headers: {
+                    'Content-Type': 'application/json', // Set the content type
+                },
+            })
+            if(response.ok){
+                const responseData = await response.json();
+                setTitleError(false)
+                setTitleErrorMsg('');
+                setOpenModal(false);
+            
+            }else {
+            // Handle the conflict error and set the error message
+                const errorData = await response.json();
+                setTitleError(true)
+                setTitleErrorMsg(errorData.message);
+                setOpenModal(true);
+          }
+        }catch(error){
+            console.log(error);
+        }
+       
     }
 
     return (
@@ -40,7 +85,7 @@ function AddWorkout (){
         </ButtonNavBar> 
         <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}> 
             <form  onSubmit={onSubmit}>
-                <h3 className='mt-2 justify-center flex text-titleColor'>Workout Plan</h3>
+                <h3 className='mt-2 justify-center flex text-titleColor'>Workout Plan Title</h3>
                 <InputField
                     name="plan"
                     value={title}
