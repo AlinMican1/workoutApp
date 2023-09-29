@@ -44,7 +44,7 @@ function AddWorkout (){
         else{
             setTitleError(false);
             setTitleErrorMsg("");
-            setOpenModal(false);
+            //setOpenModal(false);
         }
         try {
             const response = await fetch('/api/user/newPlan/Create' ,{
@@ -64,25 +64,29 @@ function AddWorkout (){
                 setTitleError(false)
                 setTitleErrorMsg('');
                 setOpenModal(false);
+                setTitle('');
             
             }else {
             // Handle the conflict error and set the error message
                 const errorData = await response.json();
                 setTitleError(true)
                 setTitleErrorMsg(errorData.message);
-                setOpenModal(true);
+                
           }
         }catch(error){
-            console.log(error);
+            setTitleError(true)
+            setTitleErrorMsg('Internal error try again.');
         }
        
     }
 
     return (
     <div>
+        
         <ButtonNavBar onclick={() => setOpenModal(true)}>
             <FontAwesomeIcon icon={faPlus} />
         </ButtonNavBar> 
+        
         <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}> 
             <form  onSubmit={onSubmit}>
                 <h3 className='mt-2 justify-center flex text-titleColor'>Workout Plan Title</h3>
@@ -123,4 +127,3 @@ export default function AddWorkoutPlan  ()  {
         <AddWorkout />
     )
 }
-

@@ -22,7 +22,7 @@ model User {
   email    String @unique
   username String @unique
   password String
-  workoutPlans WorkoutPlan[]
+  WorkoutPlans WorkoutPlan[] 
 }
 
 model WorkoutPlan {

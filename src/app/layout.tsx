@@ -32,11 +32,11 @@ export default  function RootLayout({
   //${inter.className}
   return (
     <html lang="en">
-      <body className={` bg-backgroundColor text-white border m-2 rounded-xl border-darkgray  `} >
+      <body className={` bg-backgroundColor text-white`} >
         {/* <Provider session={session}> */}
         {children}
         {/* </Provider> */}
-        <div>
+        <div className='pt-16'>
           <NavBar />
         </div>
         
