@@ -8,8 +8,8 @@ export default async function Home() {
   const session = await getServerSession(authOptions)
   
   return (
-    <div >  
-      <h1 className="text-lg font-bold px-3 pt-3">
+    <div className="border m-2 rounded-xl border-darkgray">  
+      <h1 className="text-lg font-bold px-3 pt-3 ">
         
         <DateTime />{session?.user.username}
 

@@ -5,6 +5,8 @@ import { NextResponse } from "next/server";
 
 
 export const POST = async (req: Request) =>{
+    
+    
     const {title,email} = await req.json();
     if(title === ''){
       return NextResponse.json(
@@ -12,6 +14,18 @@ export const POST = async (req: Request) =>{
         { status: 409 }
     );
     }
+    
+    const Plans = await db.workoutPlan.count();
+    if(Plans >= 6){
+      return NextResponse.json(
+        { workoutPlan: null, message: 'Only five plans allowed' },
+        { status: 409 }
+    );
+    }
+
+    
+   
+    
     try {
         // Check if a workout plan with the same title already exists for the user
         const newPlanExists = await db.user.findFirst({
@@ -25,8 +39,7 @@ export const POST = async (req: Request) =>{
           },
         });
         
-        console.log(title);
-        console.log('Existing Plan:', newPlanExists);
+       
 
         if (newPlanExists) {
         return NextResponse.json(
@@ -35,7 +48,7 @@ export const POST = async (req: Request) =>{
         );
         }
     
-        console.log(newPlanExists);
+        
     
         // Create a new workout plan with only the title connected to the user
         const newPlan = await db.workoutPlan.create({

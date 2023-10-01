@@ -19,6 +19,7 @@ module.exports = {
         'specialPink':'#ff647c',
         'titleColor' : '#e6e6e6',
         'textColor' : '#989898',
+        'textError' : '#ff3333',
         'boxDarkPink' : '#21181b',
         'boxOutDarkPink' : '#241b1e',
       },
