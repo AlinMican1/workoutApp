@@ -6,13 +6,11 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PlanModal } from '../atom/planModal'
 import { useState } from 'react'
-import { db } from '@/lib/db'
 import InputField from '../atom/inputBox'
 import { useSession } from 'next-auth/react';
-import { Router } from 'next/router'
+import { useRouter } from 'next/navigation';
 
-import { getServerSession } from 'next-auth';
-import { authOptions } from "@/lib/auth";
+
 
 function AddWorkout (){
     const [title,setTitle] = useState('');
@@ -24,7 +22,8 @@ function AddWorkout (){
     
     
     const session = useSession();
-    
+    const router = useRouter();
+
     if(session.status !== "authenticated"){
         return null;
     }
@@ -32,8 +31,7 @@ function AddWorkout (){
     const onSubmit = async (e: React.FormEvent) =>{
         e.preventDefault()
         
-        // const userSession = await getServerSession(authOptions);
-        // console.log(userSession);
+        
         if(title === ''){
             setTitleError(true);
             setTitleErrorMsg("Insert a title");
@@ -44,7 +42,7 @@ function AddWorkout (){
         else{
             setTitleError(false);
             setTitleErrorMsg("");
-            //setOpenModal(false);
+           
         }
         try {
             const response = await fetch('/api/user/newPlan/Create' ,{
@@ -65,9 +63,10 @@ function AddWorkout (){
                 setTitleErrorMsg('');
                 setOpenModal(false);
                 setTitle('');
+                router.refresh();
             
             }else {
-            // Handle the conflict error and set the error message
+            
                 const errorData = await response.json();
                 setTitleError(true)
                 setTitleErrorMsg(errorData.message);
