@@ -3,7 +3,7 @@ import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import AddWorkoutPlan from '@/components/molecule/addWorkoutPlan'
 import { db } from '@/lib/db'
-import { PlanCard } from '@/components/atom/planCard'
+import { PlanCard } from '@/components/molecule/planCard'
 import { getServerSession } from "next-auth/next"
 import { authOptions } from '@/lib/auth';
 import Provider from '@/lib/client-provider';

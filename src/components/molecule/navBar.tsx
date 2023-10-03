@@ -30,7 +30,7 @@ export const NavBar = () => {
                 </ButtonNavBar>
             </Link>
             
-            <Link href={'/'}>
+            <Link href={'/personalBest'}>
                 <ButtonNavBar btnColor='bg-transparent' btnText = "Personal">
                     <FontAwesomeIcon icon={faStar} className='text-yellow-300' />
                 </ButtonNavBar>
