@@ -4,7 +4,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import { PlanModal } from './planModal'
-import { db } from '@/lib/db'
+import { useRouter } from 'next/navigation'
 interface PlanCardProps {
     title: string
     cardId: string
@@ -29,11 +29,11 @@ export const PlanCard = ({title,cardId}:PlanCardProps) => {
         <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}>
       
                 <h3 className='mt-2 justify-center flex text-textError mt-4'>DELETE WORKOUT PLAN?</h3>
-              
-                
+
                 <div className='flex flex-col justify-center'>
-                    <button onClick = {() => deleteCard()} className={`bg-[#f3405f] text-[16px] m-2 font-bold p-1 rounded-lg  text-titleColor`} 
-                    >DELETE</button> 
+                  <DeletePlanBtn cardId={cardId} />
+                    {/* <button onClick = {() => deleteCard()} className={`bg-[#f3405f] text-[16px] m-2 font-bold p-1 rounded-lg  text-titleColor`} 
+                    >DELETE</button>  */}
                 </div>
            
         </PlanModal>
@@ -43,3 +43,39 @@ export const PlanCard = ({title,cardId}:PlanCardProps) => {
   )
 }
 
+interface DeleteBtnProps {
+  cardId: string; // Update the type accordingly
+}
+
+const DeletePlanBtn: React.FC<DeleteBtnProps> = ({ cardId }) => {
+  const router = useRouter();
+  const handleClick = async () => {
+    
+    try{
+      
+      const response = await fetch ('api/user/newPlan/Delete',{
+        method: 'POST',
+       
+        body: JSON.stringify({
+          cardId
+          
+        }),
+        headers:{
+          'Content-type': 'application/json'
+        },
+        
+      })
+      if(response.ok){
+        router.refresh()
+      }
+    }catch(error){
+      //Internal server error
+    }
+  };
+
+  return (
+    <button className={`bg-[#f3405f] text-[16px] m-2 font-bold p-1 rounded-lg  text-titleColor`} onClick={handleClick}>DELETE</button>
+  );
+}
+
+export default DeletePlanBtn;
