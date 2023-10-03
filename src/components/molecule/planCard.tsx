@@ -3,7 +3,7 @@ import React from 'react'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
-import { PlanModal } from './planModal'
+import { PlanModal } from '../atom/planModal'
 import { useRouter } from 'next/navigation'
 interface PlanCardProps {
     title: string
