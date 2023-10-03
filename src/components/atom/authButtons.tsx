@@ -4,6 +4,8 @@ import {signOut} from 'next-auth/react';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { db } from '@/lib/db';
+import { redirect } from 'next/dist/server/api-utils';
+import { useRouter } from 'next/navigation';
 
 export const SignOutBtn = () => {
   return (
@@ -21,11 +23,38 @@ export const SignOutBtn = () => {
   )
 }
 
-export const deletebtn = async ({cardId,children}:any) => {
-  const deleteCard = await db.workoutPlan.delete({
-    where: {
-      id: cardId,
-    },
-  })
-  {children}
-}
+// interface DeleteBtnProps {
+//   cardId: string; // Update the type accordingly
+// }
+
+// const DeletePlanBtn: React.FC<DeleteBtnProps> = ({ cardId }) => {
+//   const handleClick = async () => {
+    
+//     try{
+                
+//       const response = await fetch ('api/user/newPlan/Delete',{
+//         method: 'POST',
+       
+//         body: JSON.stringify({
+//           cardId
+          
+//         }),
+//         headers:{
+//           'Content-type': 'application/json'
+//         },
+        
+//       })
+//       if(response.ok){
+//         redirect
+//       }
+//     }catch(error){
+//       //Internal server error
+//     }
+//   };
+
+//   return (
+//     <button className={`bg-[#f3405f] text-[16px] m-2 font-bold p-1 rounded-lg  text-titleColor`} onClick={handleClick}>DELETE</button>
+//   );
+// }
+
+// export default DeletePlanBtn;
