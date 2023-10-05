@@ -23,6 +23,7 @@ model User {
   username String @unique
   password String
   WorkoutPlans WorkoutPlan[] 
+  PersonalBests PersonalBest[]
 }
 
 model WorkoutPlan {
@@ -34,4 +35,18 @@ model WorkoutPlan {
   planId    String
 
   @@index([planId])
+}
+
+model PersonalBest{
+  id        String   @id @default(uuid())
+  exerciseTitle  String
+  weight    Int
+  color     String @default("boxDarkPink")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  record    User @relation(fields: [recordId], references: [id])
+  recordId  String
+  
+  @@index([recordId])
+
 }

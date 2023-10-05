@@ -22,9 +22,6 @@ export const POST = async (req: Request) =>{
         { status: 409 }
     );
     }
-
-    
-   
     
     try {
         // Check if a workout plan with the same title already exists for the user

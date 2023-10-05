@@ -17,9 +17,6 @@ function AddWorkout (){
     const [titleError, setTitleError] = useState(false);
     const [titleErrorMsg, setTitleErrorMsg] = useState('');
     const [openModal, setOpenModal] = useState<boolean>(false);
-   
-    
-    
     
     const session = useSession();
     const router = useRouter();
@@ -31,19 +28,6 @@ function AddWorkout (){
     const onSubmit = async (e: React.FormEvent) =>{
         e.preventDefault()
         
-        
-        if(title === ''){
-            setTitleError(true);
-            setTitleErrorMsg("Insert a title");
-            setOpenModal(true);
-            
-            
-        }
-        else{
-            setTitleError(false);
-            setTitleErrorMsg("");
-           
-        }
         try {
             const response = await fetch('/api/user/newPlan/Create' ,{
                 method: 'POST',
@@ -51,12 +35,13 @@ function AddWorkout (){
                     title,
                     email: session.data?.user.email?.toString(),
                     
-                    
                 }),
+
                 headers: {
                     'Content-Type': 'application/json', // Set the content type
                 },
             })
+            
             if(response.ok){
                 const responseData = await response.json();
                 setTitleError(false)
@@ -66,17 +51,14 @@ function AddWorkout (){
                 router.refresh();
             
             }else {
-            
                 const errorData = await response.json();
                 setTitleError(true)
-                setTitleErrorMsg(errorData.message);
-                
-          }
+                setTitleErrorMsg(errorData.message);     
+            }
         }catch(error){
             setTitleError(true)
             setTitleErrorMsg('Internal error try again.');
         }
-       
     }
 
     return (
