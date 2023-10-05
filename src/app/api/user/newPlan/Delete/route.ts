@@ -3,20 +3,15 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const {cardId} = await request.json();
-  //console.log(cardId);
+  
   try{
-      
-      
-      
       const planExist = await db.workoutPlan.findUnique({
         where:{
           id: cardId
         }
       })
-      
-      
       if(planExist){
-        console.log("hihihi")
+        
         try{
           const deletePlan = await db.workoutPlan.delete({
             where:{

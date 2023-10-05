@@ -2,7 +2,7 @@ import React from 'react'
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import AddWorkoutPlan from '@/components/molecule/addWorkoutPlan'
-import { db } from '@/lib/db'
+
 import { PlanCard } from '@/components/molecule/planCard'
 import { getServerSession } from "next-auth/next"
 import { authOptions } from '@/lib/auth';
@@ -13,8 +13,6 @@ import Provider from '@/lib/client-provider';
 export default async function WorkoutPlanPage() {
   
     const session = await getServerSession(authOptions)
-    
-    
     let plans;
     const response = await fetch (process.env.URL + '/api/user/newPlan/Find',{
       method: 'GET',
