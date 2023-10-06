@@ -29,3 +29,14 @@ export const ButtonNavBar: React.FC<ButtonConfig> = ({btnText,btnColor, onclick,
   )
 }
 
+interface ColorButtonProps{
+  onClick?: () => void,
+  btnColor: string,
+}
+export const ColorButton = ({onClick,btnColor}:ColorButtonProps) => {
+  return(
+  <button onClick={onClick} className={`w-12 h-6 rounded rounded-lg bg-pink-300 ${btnColor}`}>
+    
+  </button>
+  )
+}

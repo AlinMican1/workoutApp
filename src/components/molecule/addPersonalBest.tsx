@@ -9,7 +9,7 @@ import { useState } from 'react'
 import InputField from '../atom/inputBox'
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-
+import { ColorButton } from '../atom/button'
 
 
 function AddPersonalRecord (){
@@ -40,21 +40,50 @@ function AddPersonalRecord (){
 
     const onSubmit = async (e: React.FormEvent) =>{
         e.preventDefault()
-        
+        let modifiedTitle = exerciseTitle; 
         if(exerciseTitle === '') {
             setExerciseTitleError(true);
-            setExerciseTitleErrorMsg('Insert a title'); 
-        }else {
-            setExerciseTitleError(false);
-            setExerciseTitleErrorMsg(''); 
-        }
+            setExerciseTitleErrorMsg('Insert a exercise title'); 
+        }else if(exerciseTitle.length > 25){
+            setExerciseTitleError(true);
+            setExerciseTitleErrorMsg('Exercise title too long'); 
+        }else if(exerciseTitle.length > 12 && exerciseTitle.length <= 25){
+            let count = 0;
+            
 
+            for (let i = 0; i < exerciseTitle.length; i++){
+                if(exerciseTitle[i] === ' '){
+                    count = 0;
+                }
+                else{
+                    count++;
+                }
+                if(count > 12){
+                    modifiedTitle = modifiedTitle.slice(0, i) + ' ' + modifiedTitle.slice(i);
+                    count = 0; // Reset the count
+                    i++; // Skip the newly inserted space
+                }
+            }
+            
+            
+            
+        }
+        
+        else {
+        
+            setExerciseTitleError(false);
+            setExerciseTitleErrorMsg('');
+          }
+        
         if(weight === '') {
             setWeightError(true);
             setWeightErrorMsg('Insert a weight'); 
         }else if(!parseFloat(weight)){
             setWeightError(true);
             setWeightErrorMsg('Insert a number'); 
+        }else if(weight.length > 4){
+            setWeightError(true);
+            setWeightErrorMsg('Keep it realistic please :)'); 
         }
         else{
             setWeightError(false);
@@ -66,7 +95,7 @@ function AddPersonalRecord (){
             const response = await fetch('/api/user/newRecord/Create' ,{
                 method: 'POST',
                 body: JSON.stringify({
-                    exerciseTitle,
+                    exerciseTitle: modifiedTitle,
                     weight,
                     color: colorCard,
                     email: session.data?.user.email?.toString(),
@@ -79,7 +108,7 @@ function AddPersonalRecord (){
             
             if(response.ok){
                 const responseData = await response.json();
-                console.log(responseData);
+                
                 
                 setExerciseTitle('');
                 setExerciseTitleError(false);
@@ -115,7 +144,7 @@ function AddPersonalRecord (){
         
         <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}> 
             <form onSubmit={onSubmit}>
-                <h3 className='mt-2 justify-center flex text-titleColor'>Add your Personal Best</h3>
+                <h3 className='m-2 justify-center flex text-titleColor'>Add your Personal Best</h3>
                 
                     
                 <InputField
@@ -135,16 +164,18 @@ function AddPersonalRecord (){
                     error={weightError}
                     errorMessage={weightErrorMsg}
                 />
-                <button type="button" className='bg-pink-300 mb-7' onClick={() => handleClick("red-500")}>Pink</button>
-                
+                <h3 className='flex justify-center font-normal text-textColor mt-4'>Sort by colour</h3>
+                <div className='grid grid-cols-4 gap-4 justify-center mt-2 '>
+                    <ColorButton btnColor={'bg-boxDarkPink'} onClick={() => handleClick("bg-boxDarkPink")} />
+                    <ColorButton btnColor={'bg-boxDarkBlue'} onClick={() => handleClick("bg-boxDarkBlue")} />
+                    <ColorButton btnColor={'bg-boxDarkPurple'} onClick={() => handleClick("bg-boxDarkPurple")} />
+                    <ColorButton btnColor={'bg-boxDarkGreen'} onClick={() => handleClick("bg-boxDarkGreen")} />
+                </div>
                 <div className={`text-textError `}>
                     {mainError && <p> {mainErrorMsg}</p>}
                 </div>
                 
-                <div className='flex flex-col mt-2 '>
-                    <button className={`bg-[#f3405f] text-[16px]  font-semibold p-1 rounded-lg w-[25%] text-titleColor`} 
-                    >Add</button> 
-                </div>
+               
             </form>
         </PlanModal> 
             
