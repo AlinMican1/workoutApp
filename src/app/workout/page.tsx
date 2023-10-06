@@ -7,11 +7,12 @@ import { PlanCard } from '@/components/molecule/planCard'
 import { getServerSession } from "next-auth/next"
 import { authOptions } from '@/lib/auth';
 import Provider from '@/lib/client-provider';
-
+import TopNavBar from '@/components/atom/topNavBar'
 
 
 export default async function WorkoutPlanPage() {
-  
+
+
     const session = await getServerSession(authOptions)
     let plans;
     const response = await fetch (process.env.URL + '/api/user/newPlan/Find',{
@@ -30,20 +31,22 @@ export default async function WorkoutPlanPage() {
     
     return (
         <Provider session={session}>
-       
-            <div className=' border m-2 rounded-xl border-darkgray'>
+            <TopNavBar>
                 <h1 className='p-3 text-lg font-semibold ' >
                     WORKOUT PLANS <FontAwesomeIcon icon={faDumbbell} className='text-white'/>
                     <AddWorkoutPlan />
                 </h1>
-                {/* GET CARDS AND PUT THEM IN HERE AWAIT PRISMA CLIENT and verification */}
-            </div>
-            <div className={`border m-2 rounded-xl border-darkgray flex flex-col`}>
+            </TopNavBar>
+           
+            <div className={`border m-2 mt-24 rounded-xl border-darkgray flex flex-col`}>
               {plans.length === 0 ? (
                 <h1 className='text-textColor font-semibold flex justify-center m-2 '>Add up to five plans</h1>
               ) : (
-                plans.map((plan: any) => <PlanCard key={plan.id} title={plan.title} cardId={plan.id}
-                 /> )
+                plans.map((plan: any) =>
+              
+                <PlanCard key={plan.id} title={plan.title} cardId={plan.id}
+                 />
+                )
               )}
             </div>
         

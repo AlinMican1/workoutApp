@@ -7,8 +7,8 @@ export const POST = async (req: Request) =>{
     
     const {exerciseTitle,weight,email,color} = await req.json();
     
-    console.log(color);
-    if(exerciseTitle === '' || weight === '' || !parseFloat(weight)){
+    
+    if(exerciseTitle === '' || weight === '' || !parseFloat(weight) || exerciseTitle.length > 25 || weight.length > 4){
       return NextResponse.json(
         { personalBest: null, message: 'Valid exercise title or weight is missing!' },
         { status: 400 }
@@ -33,14 +33,14 @@ export const POST = async (req: Request) =>{
                 
             }
         });
-        console.log(newRecord)
+        
         return NextResponse.json(
             { personalBest: newRecord, message: 'Record created successfully' },
             { status: 201 }
           );
 
       }catch(error){
-        console.log(error);
+        
         return NextResponse.json(
             { personalBest: null, message: 'An error occurred' },
             { status: 500 }

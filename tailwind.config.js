@@ -22,6 +22,15 @@ module.exports = {
         'textError' : '#ff3333',
         'boxDarkPink' : '#21181b',
         'boxOutDarkPink' : '#241b1e',
+        'boxDarkBlue' : '#181d23',
+        'boxOutDarkBlue': '#191e24',
+        'boxDarkPurple':'#221823',
+        'boxOutDarkPurple':'#231824',
+        'boxDarkGreen':'#231824',
+        'boxOutDarkGreen': '#15211f',
+
+        
+
       },
     },
   

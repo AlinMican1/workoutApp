@@ -12,12 +12,7 @@ interface PlanModalProps{
 
 
 export const PlanModal = ({isOpen,isClose,children}: PlanModalProps) => {
-    // useEffect(() =>{
-    //     document.body.style.overflow = 'hidden';
-    //     return (): void => {
-    //         document.body.style.overflow = 'unset';
-    //         };
-    //     },[isOpen]);
+  
     
         if(!isOpen) return null;
 
