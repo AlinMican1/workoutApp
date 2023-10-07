@@ -166,8 +166,8 @@ function AddPersonalRecord (){
                 />
                 <h3 className='flex justify-center font-normal text-textColor mt-4'>Sort by colour</h3>
                 <div className='grid grid-cols-4 gap-4 justify-center mt-2 '>
-                    <ColorButton btnColor={'bg-boxDarkPink'} onClick={() => handleClick("bg-boxDarkPink")} />
-                    <ColorButton btnColor={'bg-boxDarkBlue'} onClick={() => handleClick("bg-boxDarkBlue")} />
+                    <ColorButton btnColor={'bg-red-500'} onClick={() => handleClick("bg-boxDarkPink")} />
+                    <ColorButton btnColor={'bg-blue-500'} onClick={() => handleClick("bg-boxDarkBlue")} />
                     <ColorButton btnColor={'bg-boxDarkPurple'} onClick={() => handleClick("bg-boxDarkPurple")} />
                     <ColorButton btnColor={'bg-boxDarkGreen'} onClick={() => handleClick("bg-boxDarkGreen")} />
                 </div>

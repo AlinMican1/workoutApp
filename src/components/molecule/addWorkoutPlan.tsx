@@ -99,7 +99,7 @@ export default function AddWorkoutPlan  ()  {
     if(session.status !== "authenticated"){
        return (
         <div>
-        <h1 className="text-red-500">PLEASE SIGN IN TO USE FEATURE!</h1>
+        <h1 className="text-textError flex justify-center p-2 uppercase font-bold">PLEASE SIGN IN TO USE FEATURE!</h1>
         </div>
        )
     }
