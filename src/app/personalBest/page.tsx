@@ -50,6 +50,7 @@ export default async function PersonalBestPage() {
                         weight={record.weight}
                         date={record.createdAt}
                         color={record.color} 
+                        id={record.id}
                     />
                    
                 ))}
