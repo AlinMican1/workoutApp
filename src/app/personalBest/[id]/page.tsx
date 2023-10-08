@@ -1,13 +1,13 @@
 import React from 'react'
-import { faStar, faClipboard} from '@fortawesome/free-solid-svg-icons'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { getServerSession } from "next-auth/next"
-import { authOptions } from '@/lib/auth';
-import { useRouter } from 'next/navigation';
+
 
 import TopNavBar from '@/components/atom/topNavBar';
 import { DeletePB } from '@/components/atom/deletePB';
+
 import Provider from '@/lib/client-provider'
+import { EditPB } from '@/components/atom/editPB';
 
 //Get all personal Best 
 export async function generateStaticParams() {
@@ -47,7 +47,7 @@ export default async function BestRecordPage({ params }: { params: { id: string 
             </h1>
             
             <div className='justify-center  flex flex-cols gap-24'>
-                <FontAwesomeIcon className='text-[14px] mt-[5px] text-blue-600' icon={faClipboard} />
+                <EditPB cardId={recordDetail.id} />  
                 <DeletePB cardId={recordDetail.id} />
 
             </div>

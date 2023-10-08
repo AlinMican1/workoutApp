@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const {cardId} = await request.json();
-  console.log(cardId);
+  
   try{
       const recordExist = await db.personalBest.findUnique({
         where:{

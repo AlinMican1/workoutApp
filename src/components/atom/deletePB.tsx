@@ -24,7 +24,7 @@ export const DeleteRecord: React.FC<DeleteRecordProps> = ({ cardId }) => {
     
     const router = useRouter();
     const handleClick = async () => {
-        console.log(cardId)
+        
       try{
         
         const response = await fetch ('/api/user/newRecord/Delete',{
