@@ -49,7 +49,6 @@ function AddPersonalRecord (){
             setExerciseTitleErrorMsg('Exercise title too long'); 
         }else if(exerciseTitle.length > 12 && exerciseTitle.length <= 25){
             let count = 0;
-            
 
             for (let i = 0; i < exerciseTitle.length; i++){
                 if(exerciseTitle[i] === ' '){

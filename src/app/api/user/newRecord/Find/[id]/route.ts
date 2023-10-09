@@ -13,10 +13,3 @@ export async function GET(request: Request, {params}: {params: {id: string}}){
     return NextResponse.json(record, {status:201})
 }
 
-// export async function GET(){
-    
-//     const record = await db.personalBest.findMany({
-        
-//     })
-//     return NextResponse.json(record, {status:201})
-// }

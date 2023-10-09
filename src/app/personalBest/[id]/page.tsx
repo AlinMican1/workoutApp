@@ -1,13 +1,13 @@
 import React from 'react'
-import { faStar, faClipboard} from '@fortawesome/free-solid-svg-icons'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { getServerSession } from "next-auth/next"
-import { authOptions } from '@/lib/auth';
-import { useRouter } from 'next/navigation';
+
 
 import TopNavBar from '@/components/atom/topNavBar';
 import { DeletePB } from '@/components/atom/deletePB';
+
 import Provider from '@/lib/client-provider'
+import { EditPB } from '@/components/atom/editPB';
 
 //Get all personal Best 
 export async function generateStaticParams() {
@@ -47,8 +47,7 @@ export default async function BestRecordPage({ params }: { params: { id: string 
             </h1>
             
             <div className='justify-center  flex flex-cols gap-24'>
-                <FontAwesomeIcon className='text-[14px] mt-[5px] text-blue-600' icon={faClipboard} />
-                <DeletePB cardId={recordDetail.id} />
+                
 
             </div>
            
@@ -60,9 +59,14 @@ export default async function BestRecordPage({ params }: { params: { id: string 
                 <h1 className='justify-center flex text-base font-semibold p-2 uppercase text-textTitle'>{recordDetail.exerciseTitle}</h1>
                 <hr className='m-2'></hr>
                  <div className='flex justify-center m-2'>
-                    <h1 className='text-textTitle  text-[20px] border rounded-lg px-2 pb-[4px]'>{recordDetail.weight} Kg</h1>
+                    <h1 className='text-textTitle  text-[20px] mx-2 border rounded-lg px-2 pb-[4px]'>{recordDetail.weight} Kg</h1>
+                    
                 </div>
                 <h1 className='text-textColor text-[14px] flex justify-center m-2 '>Achieved on: {dateMDY}</h1>
+                <div className='flex justify-end flex-cols mx-2 gap-2'>
+                    <EditPB cardId={recordDetail.id} />  
+                    <DeletePB cardId={recordDetail.id} />
+                </div>
                 <div className='flex justify-center border m-2 rounded-lg h-80'>
                     GRAPH
                 </div>

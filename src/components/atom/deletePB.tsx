@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { DeleteButton } from '@/components/atom/button';
+import { DeleteButton2 } from '@/components/atom/button';
 import { useRouter } from 'next/navigation';
 
 interface DeletePBProps{
@@ -10,9 +10,9 @@ export const DeletePB = ({cardId}:DeletePBProps) => {
   
     return (
     <div>
-        <DeleteButton>
+        <DeleteButton2>
             <DeleteRecord cardId={cardId} />
-        </DeleteButton>
+        </DeleteButton2>
     </div>
   )
 }
@@ -24,7 +24,7 @@ export const DeleteRecord: React.FC<DeleteRecordProps> = ({ cardId }) => {
     
     const router = useRouter();
     const handleClick = async () => {
-        console.log(cardId)
+        
       try{
         
         const response = await fetch ('/api/user/newRecord/Delete',{

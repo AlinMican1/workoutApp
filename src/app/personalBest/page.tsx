@@ -19,6 +19,7 @@ export default async function PersonalBestPage() {
             exerciseTitle: true,
             weight: true,
             createdAt:true,
+            updatedAt:true,
             color:true,
             id: true,
           },
@@ -26,7 +27,7 @@ export default async function PersonalBestPage() {
     
     
 
-    console.log(records);
+    
     return(
         <Provider session={session}>
             <TopNavBar>
@@ -48,7 +49,7 @@ export default async function PersonalBestPage() {
                         key={record.id}
                         exerciseTitle={record.exerciseTitle}
                         weight={record.weight}
-                        date={record.createdAt}
+                        date={record.updatedAt}
                         color={record.color} 
                         id={record.id}
                     />
