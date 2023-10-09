@@ -10,8 +10,6 @@ interface EditPBProps{
     cardId:string,
 }
 export const EditPB = ({cardId}:EditPBProps) => {
-   
-
     return (
     <div>
        
@@ -33,11 +31,9 @@ export const EditRecord: React.FC<EditRecordProps> = ({ cardId }) => {
     const [newWeightErrorMsg, setNewWeightErrorMsg] = useState('');
     
     const router = useRouter();
-    //const session = useSession();
+   
 
-    // if(session.status !== "authenticated"){
-    //     return null;
-    // }
+    
     const onSubmit = async (e: React.FormEvent) =>{
         e.preventDefault()
         
@@ -54,13 +50,13 @@ export const EditRecord: React.FC<EditRecordProps> = ({ cardId }) => {
         }
 
         try {
-            console.log(newWeight , cardId)
-            const response = await fetch('/api/user/newRecord/Edit' ,{
-                method: 'POST',
+           
+            const response = await fetch(`/api/user/newRecord/Edit/${cardId}` ,{
+                method: 'PUT',
                 body: JSON.stringify({
-                    weight: newWeight,
-                    //email: session.data?.user.email?.toString(),
-                    id: cardId
+                    newWeight,
+                    
+                    
                 }),
                 headers: {
                     'Content-Type': 'application/json', // Set the content type
@@ -68,7 +64,7 @@ export const EditRecord: React.FC<EditRecordProps> = ({ cardId }) => {
             })
             
             if(response.ok){
-                
+                router.refresh();
             
             }else {
                 const errorData = await response.json();
@@ -82,17 +78,18 @@ export const EditRecord: React.FC<EditRecordProps> = ({ cardId }) => {
        
     }
     return (
-       
+     
         <form onSubmit={onSubmit}>
             <InputField
-            name="exercise"
+            name="weight"
             value={newWeight}
             onChange={(e) => setNewWeight(e.target.value)}
-            placeholder="newWeight"
+            placeholder="New Weight"
             error={newWeightError}
             errorMessage={newWeightErrorMsg}
             />
-            <button>ADD</button>
+            
+            <button className='bg-blue-500 text-[16px] font-bold p-1 rounded-lg w-full text-titleColor'>Update</button>
         </form>
        
     );

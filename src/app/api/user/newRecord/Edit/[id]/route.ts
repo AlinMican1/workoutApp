@@ -5,28 +5,25 @@ import { NextResponse } from "next/server";
 
 
 
-export const POST = async (req: Request) =>{
+export const PUT = async (request: Request,{params}: {params: {id: string}}) =>{
     
-    const {newWeight,cardId} = await req.json();
+    const id = params.id
+    const {newWeight} = await request.json();
     
+    console.log(newWeight);
     
     if(newWeight === '' || !parseFloat(newWeight) || newWeight.length > 4){
+      
       return NextResponse.json(
         { personalBest: null, message: 'Valid new weight is missing!' },
         { status: 400 }
     );
     }
-    // const userExist = await db.user.findUnique({
-    //   where: {email: email}
-    // });
-    // if(!userExist){
-    //    return NextResponse.json({personalBest: null, message: "User does not exist"}, {status: 404})
-    // }
     
       try{
         const UpdateRecord = await db.personalBest.update({
            where: {
-                id: cardId,
+            id,
            },
            data: {
             weight: parseFloat(newWeight),

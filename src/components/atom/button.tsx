@@ -74,6 +74,29 @@ export const DeleteButton = ({children} :DeleteButtonProps) => {
 }
 
 
+export const DeleteButton2 = ({children} :DeleteButtonProps) => {
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  return (
+    <div>
+    <button className='text-sm bg-red-500 p-[3px] rounded ' onClick={() => setOpenModal(true)}>
+      Delete
+      </button>
+      <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}>
+      
+                <h3 className='mt-2 justify-center flex text-textError mt-4'>DELETE WORKOUT PLAN?</h3>
+
+                <div className='flex flex-col justify-center'>
+                  {children}
+                  {/* <button onClick={onClick} /> */}
+                    
+                </div>
+           
+        </PlanModal>
+      </div>
+  )
+}
+
+
 interface EditButtonProps{
   children: React.ReactNode;
 }
@@ -81,13 +104,14 @@ interface EditButtonProps{
 export const EditButton = ({children} :EditButtonProps) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   return (
-    <div>
-    <button onClick={() => setOpenModal(true)}>
-      <FontAwesomeIcon className='text-[14px] text-blue-600' icon={faClipboard}/>
+    <div >
+    <button className='text-sm bg-blue-500 p-[3px] rounded '  onClick={() => setOpenModal(true)}>
+      {/* <FontAwesomeIcon className='text-[14px] text-blue-600' icon={faClipboard}/> */}
+      Update
       </button>
       <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}>
       
-                <h3 className='mt-2 justify-center flex text-textError mt-4'>Update Your weight?</h3>
+                <h3 className='m-2 justify-center flex font-bold text-titleColor'>Update Your weight?</h3>
 
                 <div className='flex flex-col justify-center'>
                   {children}
@@ -99,3 +123,4 @@ export const EditButton = ({children} :EditButtonProps) => {
       </div>
   )
 }
+
