@@ -31,12 +31,12 @@ export default async function WorkoutPlanPage() {
       },})
     if (response.ok) {
       plans = await response.json();
-      // You can now use the data received from the API
+    
      
     } else {
       console.error('Failed to fetch data');
     }
-    // console.log(plans)
+    
     
     
     return (

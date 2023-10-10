@@ -15,19 +15,19 @@ export const PlanCard = ({title,cardId}:PlanCardProps) => {
   }
 
   return (
-    // <button onClick={() => OpenPlan(cardId)}>
+    <button onClick={() => OpenPlan(cardId)}>
     <div className='bg-boxDarkPink h-24 m-2 rounded rounded-lg border border-specialPink '>
       <h1 className='flex justify-center text-titleColor m-6'>
         {title}
       </h1>
     
-    <div>
+    {/* <div>
       <DeleteButton>
         <DeletePlanBtn cardId={cardId} />
       </DeleteButton>
+    </div> */}
     </div>
-    </div>
-  // </button>
+   </button>
   
   
     

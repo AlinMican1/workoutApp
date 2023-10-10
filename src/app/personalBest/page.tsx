@@ -5,7 +5,6 @@ import AddPersonalBest from "@/components/molecule/addPersonalBest"
 import Provider from '@/lib/client-provider';
 import { getServerSession } from "next-auth/next"
 import { authOptions } from '@/lib/auth';
-import { db } from "@/lib/db";
 import TopNavBar from "@/components/atom/topNavBar";
 
 export default async function PersonalBestPage() {
@@ -28,7 +27,6 @@ export default async function PersonalBestPage() {
         console.error('Failed to fetch data');
       }
 
-    console.log(records);
     return(
         <Provider session={session}>
             <TopNavBar>
