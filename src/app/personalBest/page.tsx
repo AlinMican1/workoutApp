@@ -10,24 +10,25 @@ import TopNavBar from "@/components/atom/topNavBar";
 
 export default async function PersonalBestPage() {
     
-    
-
     const session = await getServerSession(authOptions)
+    
+    let records;
+    const response = await fetch (process.env.URL + '/api/user/newRecord/Find',{
+        method: 'POST',
+        body: JSON.stringify({
+        userEmail: session?.user.email as String,
+        }),
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },})
+        if(response.ok){
+            records = await response.json()
+        }else {
+        console.error('Failed to fetch data');
+      }
 
-    const records = await db.personalBest.findMany({
-        select: {
-            exerciseTitle: true,
-            weight: true,
-            createdAt:true,
-            updatedAt:true,
-            color:true,
-            id: true,
-          },
-        });
-    
-    
-
-    
+    console.log(records);
     return(
         <Provider session={session}>
             <TopNavBar>
@@ -43,7 +44,7 @@ export default async function PersonalBestPage() {
               ) : (
                 <div className={`grid grid-cols-2 gap-0`}>
                      
-                {records.map((record: any) => (
+                {records.PersonalBests.map((record: any) => (
 
                     <PbCard
                         key={record.id}

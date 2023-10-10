@@ -10,13 +10,21 @@ import Provider from '@/lib/client-provider';
 import TopNavBar from '@/components/atom/topNavBar'
 
 
+
 export default async function WorkoutPlanPage() {
 
-
     const session = await getServerSession(authOptions)
+    
+    if(!session?.user){
+      return null;
+    }
+
     let plans;
     const response = await fetch (process.env.URL + '/api/user/newPlan/Find',{
-      method: 'GET',
+      method: 'POST',
+      body: JSON.stringify({
+        userEmail: session?.user.email as String,
+      }),
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -28,6 +36,8 @@ export default async function WorkoutPlanPage() {
     } else {
       console.error('Failed to fetch data');
     }
+    // console.log(plans)
+    
     
     return (
         <Provider session={session}>
@@ -39,14 +49,12 @@ export default async function WorkoutPlanPage() {
             </TopNavBar>
            
             <div className={`border m-2 mt-24 rounded-xl border-darkgray flex flex-col`}>
-              {plans.length === 0 ? (
+              {plans && plans.WorkoutPlans.length === 0 ? (
                 <h1 className='text-textColor font-semibold flex justify-center m-2 '>Add up to five plans</h1>
               ) : (
-                plans.map((plan: any) =>
-              
-                <PlanCard key={plan.id} title={plan.title} cardId={plan.id}
-                 />
-                )
+                plans && plans.WorkoutPlans.map((plan: any) => (
+                  <PlanCard key={plan.id} title={plan.title} cardId={plan.id} />
+                ))
               )}
             </div>
         

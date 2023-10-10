@@ -15,8 +15,21 @@ export const POST = async (req: Request) =>{
     );
     }
     
-    const Plans = await db.workoutPlan.count();
-    if(Plans >= 6){
+    const userPlans = await db.user.findUnique({
+      where: {
+        email,
+      },
+      select: {
+        WorkoutPlans: {
+          select: {
+            id: true, // You can select only the id field if you just want to count
+          },
+        },
+      },
+    });
+    const plansCount = userPlans?.WorkoutPlans.length || 0;
+
+    if(plansCount >= 5){
       return NextResponse.json(
         { workoutPlan: null, message: 'Only five plans allowed' },
         { status: 409 }

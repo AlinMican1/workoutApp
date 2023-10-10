@@ -1,11 +1,11 @@
 'use client'
 import React, { useState } from 'react'
-import { EditButton } from '@/components/atom/button';
+import { ButtonNavBar, UpdateButton } from '@/components/atom/button';
 import { useRouter } from 'next/navigation';
 import InputField from './inputBox';
-import { useSession } from 'next-auth/react';
-import Provider from '@/lib/client-provider';
-
+import { PlanModal } from './planModal';
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 interface EditPBProps{
     cardId:string,
 }
@@ -13,9 +13,9 @@ export const EditPB = ({cardId}:EditPBProps) => {
     return (
     <div>
        
-        <EditButton>
-            <EditRecord cardId={cardId} />
-        </EditButton>
+        
+        <EditRecord cardId={cardId} />
+       
        
     </div>
   )
@@ -30,6 +30,7 @@ export const EditRecord: React.FC<EditRecordProps> = ({ cardId }) => {
     const [newWeightError, setNewWeightError] = useState<boolean>(false);
     const [newWeightErrorMsg, setNewWeightErrorMsg] = useState('');
     
+    const [openModal, setOpenModal] = useState<boolean>(false);
     const router = useRouter();
    
 
@@ -64,6 +65,7 @@ export const EditRecord: React.FC<EditRecordProps> = ({ cardId }) => {
             })
             
             if(response.ok){
+                setOpenModal(false);
                 router.refresh();
             
             }else {
@@ -78,8 +80,14 @@ export const EditRecord: React.FC<EditRecordProps> = ({ cardId }) => {
        
     }
     return (
-     
+        <>
+        <UpdateButton onClick={() => setOpenModal(true)}>
+         Update
+        </UpdateButton> 
+        <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}> 
+       
         <form onSubmit={onSubmit}>
+            <div className='mt-2'>
             <InputField
             name="weight"
             value={newWeight}
@@ -88,10 +96,12 @@ export const EditRecord: React.FC<EditRecordProps> = ({ cardId }) => {
             error={newWeightError}
             errorMessage={newWeightErrorMsg}
             />
-            
-            <button className='bg-blue-500 text-[16px] font-bold p-1 rounded-lg w-full text-titleColor'>Update</button>
+            </div>
+            <button className='bg-blue-500 text-[16px] mt-[2px] font-bold p-1 rounded-lg w-full text-titleColor'>Update</button>
+           
         </form>
-       
+        </PlanModal>
+        </>
     );
   }
   

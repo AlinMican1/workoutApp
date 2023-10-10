@@ -8,22 +8,29 @@ interface PlanCardProps {
     
 }
 export const PlanCard = ({title,cardId}:PlanCardProps) => {
+  const router = useRouter();
   
-  
+  const OpenPlan  = (cardId:string) =>{
+    router.push(`/workout/${cardId}`)
+  }
 
   return (
+    // <button onClick={() => OpenPlan(cardId)}>
     <div className='bg-boxDarkPink h-24 m-2 rounded rounded-lg border border-specialPink '>
       <h1 className='flex justify-center text-titleColor m-6'>
         {title}
       </h1>
-      <div className='flex justify-end m-2'>
-        <DeleteButton >
-          <DeletePlanBtn cardId={cardId} />
-        </DeleteButton>
-        
-      </div>
-        
+    
+    <div>
+      <DeleteButton>
+        <DeletePlanBtn cardId={cardId} />
+      </DeleteButton>
     </div>
+    </div>
+  // </button>
+  
+  
+    
   )
 }
 
@@ -53,7 +60,7 @@ const DeletePlanBtn: React.FC<DeleteBtnProps> = ({ cardId }) => {
         router.refresh()
       }
     }catch(error){
-      //Internal server error
+      
     }
   };
 
