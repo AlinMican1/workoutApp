@@ -43,11 +43,9 @@ model ScheduleCard{
     day       String
     exerciseTitle String
     color     String
-    Schedule WorkoutPlan @relation(fields:[ScheduleID], references: [id])
+    Schedule  WorkoutPlan @relation(fields:[ScheduleID], references: [id])
     ScheduleID String
-    
     ScheduleCardWeights ScheduleCardWeight[]
-    
     @@index([ScheduleID])
 }
 model ScheduleCardWeight{

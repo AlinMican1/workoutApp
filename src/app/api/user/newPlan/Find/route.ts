@@ -24,7 +24,10 @@ export async function POST(request: Request) {
       }
       
     });
-   
+    
+    if(!plans){  
+      return NextResponse.json({message:"This Page does not exist"} , {status:404});
+      }
     return NextResponse.json(plans , {status:200});
     
   }

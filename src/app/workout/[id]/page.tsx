@@ -6,6 +6,9 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from '@/lib/auth';
 import BreakCard from '@/components/atom/breakCard'
 import DaySection from '@/components/atom/daySection'
+import AddScheduleCard from '@/components/molecule/addScheduleCard'
+import Provider from '@/lib/client-provider'
+
 export async function generateStaticParams() {
   const plans = await fetch(process.env.URL + '/api/user/newPlan/Find');
   const data = await plans.json();
@@ -37,6 +40,23 @@ async function getPlan(id:string,userEmail:string){
       }
 
 }
+
+async function getScheduleCard(WorkoutId:string){
+  const response = await fetch(process.env.URL + `/api/user/newSchedule/Find` ,{
+    method:'POST',
+    body: JSON.stringify({
+      WorkoutId,
+    })
+  })
+  if(response.ok){
+    const scheduleCard = await response.json();
+    
+    return scheduleCard || []
+  }
+  else{
+    console.error('Failed to fetch data');
+  }
+}
  
 
 export default async function WorkoutPlanSchedule({ params }: { params: { id: string } }){
@@ -46,8 +66,11 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
   if(!userEmail){
       return null
   }
-  const planDetail = await getPlan(params.id, userEmail)
+  const planDetail = await getPlan(params.id, userEmail);
+  const scheduleCard = await getScheduleCard(params.id);
 
+ 
+  
   let plan;
   if (!planDetail){
     return (
@@ -64,11 +87,13 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
     return (
     
     <div>
+      <Provider session={session}>
       <header>
         <TopNavBar>
           <h1 className='p-3 text-lg font-semibold'>
             {plan.title} <FontAwesomeIcon icon={faDumbbell} className='text-white'/>
           </h1>
+          <AddScheduleCard id={params.id}/>
         </TopNavBar>
       </header>
       <main>
@@ -80,6 +105,7 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
           ))}
         </div>
       </main>
+      </Provider>
     </div>
   )
 }
