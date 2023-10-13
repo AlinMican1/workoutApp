@@ -28,7 +28,9 @@ function AddPersonalRecord (){
 
     const [colorCard,setColorCard] = useState('boxDarkPink');
 
-    const handleClick = (color:any) =>{
+
+    //I changed this to string in case in dont work from any
+    const handleClick = (color:string) =>{
          setColorCard(color);
     };
     const session = useSession();

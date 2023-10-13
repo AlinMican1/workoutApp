@@ -31,23 +31,23 @@ export const POST = async (req: Request) =>{
             data: {
                 exerciseTitle,
                 day,
-                color: 'bg-blue-500',
+                weight: parseFloat(weight),
+                sets: parseFloat(sets),
+                reps: parseFloat(reps),
                 Schedule: { connect: { id: id } },
                 
             }
         });
 
-        const newScheduleCardWeight = await db.scheduleCardWeight.create({
-            data: {
-                weight: parseFloat(weight),
-                sets: parseFloat(sets),
-                reps: parseFloat(reps),
-                ScheduleRecords: { connect: { id: newScheduleCard.id } }, // Use the ID of the newScheduleCard
-            }
-        });
+        // const newScheduleCardWeight = await db.scheduleCardWeight.create({
+        //     data: {
+               
+        //         ScheduleRecords: { connect: { id: newScheduleCard.id } }, // Use the ID of the newScheduleCard
+        //     }
+        // });
         return NextResponse.json(
             {  scheduleCard: newScheduleCard,
-                scheduleCardWeight: newScheduleCardWeight, message: 'Record created successfully' },
+                message: 'Record created successfully' },
             { status: 201 }
           );
 

@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 
-import { ButtonNavBar } from '../atom/button'
+import { ButtonNavBar, SelectDayButton } from '../atom/button'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PlanModal } from '../atom/planModal'
@@ -48,6 +48,10 @@ function AddSchedule ({ id }: { id: string }){
     if(id === ''){
         return null;
     }
+
+    const handleClick = (day:string) =>{
+        setDay(day);
+    };
 
     const onSubmit = async (e: React.FormEvent) =>{
         e.preventDefault()
@@ -118,7 +122,16 @@ function AddSchedule ({ id }: { id: string }){
         <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}> 
             <form  onSubmit={onSubmit}>
                 <h3 className='mt-2 justify-center flex text-titleColor'>Add Card</h3>
-                
+                <div className='text-textColor mt-2'>Select a day</div>
+                <div className='flex mt-2 mb-2 flex-cols gap-4 justify-center'>
+                    <SelectDayButton nameButton='Mo' onClick={() => handleClick("monday")}/>
+                    <SelectDayButton nameButton='Tu' onClick={() => handleClick("tuesday")}/>
+                    <SelectDayButton nameButton='We' onClick={() => handleClick("wednesday")}/>
+                    <SelectDayButton nameButton='Th' onClick={() => handleClick("thursday")}/>
+                    <SelectDayButton nameButton='Fr' onClick={() => handleClick("friday")}/>
+                    <SelectDayButton nameButton='Sa' onClick={() => handleClick("saturday")}/>
+                    <SelectDayButton nameButton='Su' onClick={() => handleClick("sunday")}/>
+                </div>
                 <InputField
                     name="day"
                     value={day}

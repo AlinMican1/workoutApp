@@ -8,7 +8,7 @@ import BreakCard from '@/components/atom/breakCard'
 import DaySection from '@/components/atom/daySection'
 import AddScheduleCard from '@/components/molecule/addScheduleCard'
 import Provider from '@/lib/client-provider'
-
+import { ScheduleCard } from '@/components/atom/scheduleCard'
 export async function generateStaticParams() {
   const plans = await fetch(process.env.URL + '/api/user/newPlan/Find');
   const data = await plans.json();
@@ -41,20 +41,21 @@ async function getPlan(id:string,userEmail:string){
 
 }
 
-async function getScheduleCard(WorkoutId:string){
-  const response = await fetch(process.env.URL + `/api/user/newSchedule/Find` ,{
-    method:'POST',
-    body: JSON.stringify({
-      WorkoutId,
-    })
-  })
-  if(response.ok){
+
+async function getScheduleCard(WorkoutId: string) {
+  const response = await fetch(process.env.URL + `/api/user/newSchedule/Find/${WorkoutId}`, {
+    method: 'GET', // Use the GET method
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+
+  if (response.ok) {
     const scheduleCard = await response.json();
-    
-    return scheduleCard || []
-  }
-  else{
-    console.error('Failed to fetch data');
+    return scheduleCard || [];
+  } else {
+    console.log('Failed to fetch data');
   }
 }
  
@@ -66,11 +67,10 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
   if(!userEmail){
       return null
   }
-  const planDetail = await getPlan(params.id, userEmail);
   const scheduleCard = await getScheduleCard(params.id);
-
- 
+  const planDetail = await getPlan(params.id, userEmail);
   
+  console.log(scheduleCard[0])
   let plan;
   if (!planDetail){
     return (
@@ -98,12 +98,35 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
       </header>
       <main>
       <div className={`border m-2 mt-24 rounded-xl border-darkgray flex flex-col`}>
-          {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day) => (
-            <DaySection key={day} day={day}>
-              <BreakCard />
-            </DaySection>
-          ))}
-        </div>
+  {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day) => (
+    <DaySection key={day} day={day}>
+      {scheduleCard.map((card: any, index: any) => {
+        if (card.ScheduleCards && Array.isArray(card.ScheduleCards)) {
+          const matchingCards = card.ScheduleCards.filter((schedule: { day: string }) => schedule.day.toLowerCase() === day.toLowerCase());
+          if (matchingCards.length === 0) {
+            return <BreakCard key={`break-${index}`} />;
+          }
+          return matchingCards.map((matchingCard: any, cardIndex: any) => (
+            <ScheduleCard key={index + cardIndex} color={'bg-blue-500'} exerciseTitle={matchingCard.exerciseTitle} weight={matchingCard.weight}>
+              <div className='flex justify-end text-textColor'>Sets: {matchingCard.sets} Reps: {matchingCard.reps}</div>
+              
+              {/* {matchingCard.ScheduleCardWeights.map((weight:any, weightIndex:any) => (
+                <div className='text-sm font-medium'  key={weightIndex}>
+                  
+                  Weight: {weight.weight} kg
+                  <span className='flex justify-end'> Sets: {weight.sets} Reps: {weight.reps}  </span>
+                 
+                
+                </div>
+              ))} */}
+            </ScheduleCard>
+          ));
+        }
+        return null;
+      })}
+    </DaySection>
+  ))}
+</div>
       </main>
       </Provider>
     </div>
