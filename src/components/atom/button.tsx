@@ -97,30 +97,48 @@ export const DeleteButton2 = ({children} :DeleteButtonProps) => {
 }
 
 
-interface EditButtonProps{
+interface UpdateButtonProps{
   children: React.ReactNode;
+  onClick?: () => void;
 }
 
-export const EditButton = ({children} :EditButtonProps) => {
-  const [openModal, setOpenModal] = useState<boolean>(false);
+export const UpdateButton = ({children,onClick} :UpdateButtonProps) => {
+ 
   return (
-    <div >
-    <button className='text-sm bg-blue-500 p-[3px] rounded '  onClick={() => setOpenModal(true)}>
-      {/* <FontAwesomeIcon className='text-[14px] text-blue-600' icon={faClipboard}/> */}
+   
+    <button className='text-sm bg-blue-500 p-[3px] rounded '  onClick={onClick}>
+    
       Update
       </button>
-      <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}>
       
-                <h3 className='m-2 justify-center flex font-bold text-titleColor'>Update Your weight?</h3>
+      
+  )
+}
 
-                <div className='flex flex-col justify-center'>
-                  {children}
-                  
-                    
-                </div>
-           
-        </PlanModal>
-      </div>
+interface SelectDayButtonProps{
+  nameButton: string,
+  onClick?: () => void
+
+}
+
+
+export const SelectDayButton =({nameButton, onClick}: SelectDayButtonProps) =>{
+  const [selectedDay, setSelectedDay] = useState('');
+
+  const handleButtonClick = () => {
+    setSelectedDay(nameButton);
+    if (onClick) {
+      onClick();
+    }
+  };
+
+  return (
+    <button type="button"
+    className={`text-textColor active:text-lg text-[14px]`}
+    onClick={onClick}
+  >
+    {nameButton}
+  </button>
   )
 }
 

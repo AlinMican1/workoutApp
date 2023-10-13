@@ -10,7 +10,7 @@ export const PUT = async (request: Request,{params}: {params: {id: string}}) =>{
     const id = params.id
     const {newWeight} = await request.json();
     
-    console.log(newWeight);
+   
     
     if(newWeight === '' || !parseFloat(newWeight) || newWeight.length > 4){
       

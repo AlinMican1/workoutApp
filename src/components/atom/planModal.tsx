@@ -1,14 +1,10 @@
 import React from 'react'
-import { useEffect } from 'react'
 
 interface PlanModalProps{
-    //children: React.ReactChildren | React.ReactChild;
     isOpen: boolean;
     isClose: () => void;
     children: React.ReactNode;
 }
-
-
 
 
 export const PlanModal = ({isOpen,isClose,children}: PlanModalProps) => {

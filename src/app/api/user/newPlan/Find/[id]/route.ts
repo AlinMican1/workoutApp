@@ -17,7 +17,7 @@ export async function POST(request: Request, {params}: {params: {id: string}}){
             email: userEmail,
         },
         select:{
-            PersonalBests:{
+            WorkoutPlans:{
                 where:{
                     id
                 }
@@ -25,7 +25,7 @@ export async function POST(request: Request, {params}: {params: {id: string}}){
         }
     })
     
-    if(!record || !record.PersonalBests || record.PersonalBests.length === 0){
+    if(!record || !record.WorkoutPlans || record.WorkoutPlans.length === 0){
         
         return NextResponse.json({message:"This Page does not exist"} , {status:404});
     }

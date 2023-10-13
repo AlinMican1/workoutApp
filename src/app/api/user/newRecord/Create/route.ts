@@ -29,11 +29,11 @@ export const POST = async (req: Request) =>{
                 exerciseTitle,
                 weight: parseFloat(weight),
                 color,
-                record: { connect : { email: email} },
+                record: { connect : {email: email} },
                 
             }
         });
-        
+        console.log(userExist);
         return NextResponse.json(
             { personalBest: newRecord, message: 'Record created successfully' },
             { status: 201 }
