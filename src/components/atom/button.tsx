@@ -60,12 +60,11 @@ export const DeleteButton = ({children} :DeleteButtonProps) => {
       </button>
       <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}>
       
-                <h3 className='mt-2 justify-center flex text-textError mt-4'>DELETE WORKOUT PLAN?</h3>
+                <h3 className='mt-2 justify-center flex text-textError mt-4'>DELETE IT?</h3>
 
                 <div className='flex flex-col justify-center'>
                   {children}
-                  {/* <button onClick={onClick} /> */}
-                    
+
                 </div>
            
         </PlanModal>

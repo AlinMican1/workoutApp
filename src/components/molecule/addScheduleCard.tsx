@@ -55,7 +55,72 @@ function AddSchedule ({ id }: { id: string }){
 
     const onSubmit = async (e: React.FormEvent) =>{
         e.preventDefault()
-        
+
+        if(day === ''){
+            setDayError(true);
+            setDayErrorMsg('Select a day');
+        }
+        else{
+            setDayError(false);
+            setDayErrorMsg('');
+        }
+
+        if(exerciseTitle === '') {
+            setExerciseTitleError(true);
+            setExerciseTitleErrorMsg('Insert a exercise title'); 
+        }else if(exerciseTitle.length > 25){
+            setExerciseTitleError(true);
+            setExerciseTitleErrorMsg('Exercise title too long'); 
+        }else{
+            setExerciseTitleError(false);
+            setExerciseTitleErrorMsg(''); 
+        }
+
+        if(weight === '') {
+            setWeightError(true);
+            setWeightErrorMsg('Insert a weight'); 
+        }else if(!parseFloat(weight)){
+            setWeightError(true);
+            setWeightErrorMsg('Insert a number'); 
+        }else if(weight.length > 4){
+            setWeightError(true);
+            setWeightErrorMsg('Keep it realistic please :)'); 
+        }
+        else{
+            setWeightError(false);
+            setWeightErrorMsg('');
+        }
+
+        if(sets === '') {
+            setSetsError(true);
+            setSetsErrorMsg('Insert sets'); 
+        }else if(!parseFloat(sets)){
+            setSetsError(true);
+            setSetsErrorMsg('Insert a number'); 
+        }else if(sets.length > 3){
+            setSetsError(true);
+            setSetsErrorMsg('Keep it realistic please :)'); 
+        }
+        else{
+            setSetsError(false);
+            setSetsErrorMsg(''); 
+        }
+
+        if(reps === '') {
+            setRepsError(true);
+            setRepsErrorMsg('Insert reps'); 
+        }else if(!parseFloat(reps)){
+            setRepsError(true);
+            setRepsErrorMsg('Insert a number'); 
+        }else if(reps.length > 4){
+            setRepsError(true);
+            setRepsErrorMsg('Keep it realistic please :)'); 
+        }
+        else{
+            setRepsError(false);
+            setRepsErrorMsg('');
+        }
+
         try {
             const response = await fetch('/api/user/newSchedule/Create' ,{
                 method: 'POST',
@@ -132,14 +197,15 @@ function AddSchedule ({ id }: { id: string }){
                     <SelectDayButton nameButton='Sa' onClick={() => handleClick("saturday")}/>
                     <SelectDayButton nameButton='Su' onClick={() => handleClick("sunday")}/>
                 </div>
-                <InputField
+                {dayError && <p className="text-red-500 text-sm">{dayErrorMsg}</p>}
+                {/* <InputField
                     name="day"
                     value={day}
                     onChange={(e) => setDay(e.target.value)}
                     placeholder="day"
                     error={dayError}
                     errorMessage={dayErrorMsg}
-                />
+                /> */}
 
                 <InputField
                     name="exercise"

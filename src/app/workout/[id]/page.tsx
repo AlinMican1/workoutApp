@@ -9,6 +9,9 @@ import DaySection from '@/components/atom/daySection'
 import AddScheduleCard from '@/components/molecule/addScheduleCard'
 import Provider from '@/lib/client-provider'
 import { ScheduleCard } from '@/components/atom/scheduleCard'
+import { DeleteScheduleCard } from '@/components/atom/deleteSchedule'
+
+
 export async function generateStaticParams() {
   const plans = await fetch(process.env.URL + '/api/user/newPlan/Find');
   const data = await plans.json();
@@ -70,7 +73,7 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
   const scheduleCard = await getScheduleCard(params.id);
   const planDetail = await getPlan(params.id, userEmail);
   
-  console.log(scheduleCard[0])
+  
   let plan;
   if (!planDetail){
     return (
@@ -103,24 +106,36 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
       {scheduleCard.map((card: any, index: any) => {
         if (card.ScheduleCards && Array.isArray(card.ScheduleCards)) {
           const matchingCards = card.ScheduleCards.filter((schedule: { day: string }) => schedule.day.toLowerCase() === day.toLowerCase());
+          
+          
+          let color: string;
+         
+          if(day.toLowerCase() === 'monday'){
+            color = 'bg-red-500'
+           
+          }
+          if(day.toLowerCase() === 'tuesday'){
+            color = 'bg-blue-500'
+          }
           if (matchingCards.length === 0) {
             return <BreakCard key={`break-${index}`} />;
           }
-          return matchingCards.map((matchingCard: any, cardIndex: any) => (
-            <ScheduleCard key={index + cardIndex} color={'bg-blue-500'} exerciseTitle={matchingCard.exerciseTitle} weight={matchingCard.weight}>
-              <div className='flex justify-end text-textColor'>Sets: {matchingCard.sets} Reps: {matchingCard.reps}</div>
-              
-              {/* {matchingCard.ScheduleCardWeights.map((weight:any, weightIndex:any) => (
-                <div className='text-sm font-medium'  key={weightIndex}>
-                  
-                  Weight: {weight.weight} kg
-                  <span className='flex justify-end'> Sets: {weight.sets} Reps: {weight.reps}  </span>
-                 
-                
+          return matchingCards.map((matchingCard: any, cardIndex: any) => {
+            const date = new Date(matchingCard.createdAt);
+            const dateMDY = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+            
+            return (
+              <ScheduleCard key={index + cardIndex} color={color} exerciseTitle={matchingCard.exerciseTitle} date={dateMDY} scheduleId={matchingCard.id}>
+                <div className='flex justify-start mt-2 gap-2 '>
+                  <span className='border rounded p-[4px] text-textTitle text-normal'>{matchingCard.weight} kg</span>
+                  <span className='border rounded p-[4px] text-textTitle text-normal'> {matchingCard.sets} x {matchingCard.reps}</span>
                 </div>
-              ))} */}
-            </ScheduleCard>
-          ));
+                <div className='flex justify-end gap-4 text-lg '>
+                <DeleteScheduleCard scheduleId={matchingCard.id} />
+                </div>
+              </ScheduleCard>
+            );
+          });
         }
         return null;
       })}

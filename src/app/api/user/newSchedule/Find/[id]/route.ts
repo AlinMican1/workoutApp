@@ -48,7 +48,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
             weight: true,
             sets: true,
             reps: true,
-
+            createdAt:true,
             //ScheduleCardWeights: true,
           },
         },

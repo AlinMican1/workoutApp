@@ -38,13 +38,17 @@ model WorkoutPlan {
   @@index([planId])
 }
 
+
+
 model ScheduleCard{
     id        String   @id @default(uuid())
     day       String
     exerciseTitle String
-    weight    Int?
-    sets      Int?
-    reps      Int?
+    weight    Int
+    sets      Int
+    reps      Int
+    createdAt  DateTime @default(now())
+    updatedAt DateTime? @updatedAt
     Schedule  WorkoutPlan @relation(fields:[ScheduleID], references: [id])
     ScheduleID String
    
