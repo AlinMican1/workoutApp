@@ -10,6 +10,7 @@ import AddScheduleCard from '@/components/molecule/addScheduleCard'
 import Provider from '@/lib/client-provider'
 import { ScheduleCard } from '@/components/atom/scheduleCard'
 import { DeleteScheduleCard } from '@/components/atom/deleteSchedule'
+import { EditScheduleCard } from '@/components/atom/editSchedule'
 
 
 export async function generateStaticParams() {
@@ -106,8 +107,6 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
       {scheduleCard.map((card: any, index: any) => {
         if (card.ScheduleCards && Array.isArray(card.ScheduleCards)) {
           const matchingCards = card.ScheduleCards.filter((schedule: { day: string }) => schedule.day.toLowerCase() === day.toLowerCase());
-          
-          
           let color: string;
          
           if(day.toLowerCase() === 'monday'){
@@ -117,13 +116,52 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
           if(day.toLowerCase() === 'tuesday'){
             color = 'bg-blue-500'
           }
+          if(day.toLowerCase() === 'wednesday'){
+            color = 'bg-[#C147E9]'
+          }
+          if(day.toLowerCase() === 'thursday'){
+            color = 'bg-[#46C2CB]'
+          }
+          if(day.toLowerCase() === 'friday'){
+            color = 'bg-[#FB2576]'
+          }
+          if(day.toLowerCase() === 'saturday'){
+            color = 'bg-[#AF0171]'
+          }
+          if(day.toLowerCase() === 'sunday'){
+            color = 'bg-[#7A0BC0]'
+          }
           if (matchingCards.length === 0) {
             return <BreakCard key={`break-${index}`} />;
           }
           return matchingCards.map((matchingCard: any, cardIndex: any) => {
             const date = new Date(matchingCard.createdAt);
             const dateMDY = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+
+            const updateDate = new Date(matchingCard.updatedAt);
+            const updateDateMDY = `${updateDate .getDate()}.${updateDate .getMonth() + 1}.${updateDate .getFullYear()}`;
+            //Check for updated weight to display message. If everything is the same then card hasn't been updated else check for all possible outcomes.
+            let updatedWeight = "";
+            let dateIncreased ;
+            let increase;
+            if(matchingCard.weight === matchingCard.firstWeight){
+              updatedWeight = '';
+              
+            }
             
+            else if(matchingCard.weight > matchingCard.firstWeight){
+              updatedWeight = `${matchingCard.weight - matchingCard.firstWeight}`
+              dateIncreased = Math.floor((matchingCard.updatedAt - matchingCard.createdAt) / (1000 * 60 * 60 * 24))
+              increase = true
+
+            }
+            else if(matchingCard.weight < matchingCard.firstWeight){
+              updatedWeight = `${matchingCard.firstWeight - matchingCard.weight}`
+              increase = false
+            }
+            else{
+              updatedWeight = ''
+            }
             return (
               <ScheduleCard key={index + cardIndex} color={color} exerciseTitle={matchingCard.exerciseTitle} date={dateMDY} scheduleId={matchingCard.id}>
                 <div className='flex justify-start mt-2 gap-2 '>
@@ -131,8 +169,11 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
                   <span className='border rounded p-[4px] text-textTitle text-normal'> {matchingCard.sets} x {matchingCard.reps}</span>
                 </div>
                 <div className='flex justify-end gap-4 text-lg '>
+                <EditScheduleCard scheduleId={matchingCard.id} />
                 <DeleteScheduleCard scheduleId={matchingCard.id} />
+                
                 </div>
+                <div>{increase ? <h1>You went up by {updatedWeight} kg in {dateIncreased} days</h1> : <h1></h1>}</div>
               </ScheduleCard>
             );
           });

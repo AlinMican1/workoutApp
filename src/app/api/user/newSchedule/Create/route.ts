@@ -1,9 +1,6 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
-
-
-
 export const POST = async (req: Request) =>{
     
     const {day, exerciseTitle,weight,sets,reps,email,id} = await req.json();
@@ -42,6 +39,9 @@ export const POST = async (req: Request) =>{
                 weight: parseFloat(weight),
                 sets: parseFloat(sets),
                 reps: parseFloat(reps),
+                firstWeight: parseFloat(weight),
+                firstSet: parseFloat(sets),
+                firstRep: parseFloat(reps),
                 Schedule: { connect: { id: id } },
                 
             }

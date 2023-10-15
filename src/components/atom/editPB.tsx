@@ -1,22 +1,17 @@
 'use client'
 import React, { useState } from 'react'
-import { ButtonNavBar, UpdateButton } from '@/components/atom/button';
+import { UpdateButton } from '@/components/atom/button';
 import { useRouter } from 'next/navigation';
 import InputField from './inputBox';
 import { PlanModal } from './planModal';
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 interface EditPBProps{
     cardId:string,
 }
 export const EditPB = ({cardId}:EditPBProps) => {
     return (
     <div>
-       
-        
         <EditRecord cardId={cardId} />
-       
-       
     </div>
   )
 }

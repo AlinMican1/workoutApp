@@ -52,13 +52,13 @@ interface DeleteButtonProps{
 }
 
 export const DeleteButton = ({children} :DeleteButtonProps) => {
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  // const [openModal, setOpenModal] = useState<boolean>(false);
   return (
     <div>
-    <button onClick={() => setOpenModal(true)}>
+    <button>
       <FontAwesomeIcon className='text-[14px] text-red-600' icon={faTrash}/>
       </button>
-      <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}>
+      {/* <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}>
       
                 <h3 className='mt-2 justify-center flex text-textError mt-4'>DELETE IT?</h3>
 
@@ -67,7 +67,7 @@ export const DeleteButton = ({children} :DeleteButtonProps) => {
 
                 </div>
            
-        </PlanModal>
+        </PlanModal> */}
       </div>
   )
 }
