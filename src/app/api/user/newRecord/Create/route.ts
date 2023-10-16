@@ -8,7 +8,7 @@ export const POST = async (req: Request) =>{
     const {exerciseTitle,weight,email,color} = await req.json();
     
     
-    if(exerciseTitle === '' || weight === '' || !parseFloat(weight) || exerciseTitle.length > 25 || weight.length > 4){
+    if(exerciseTitle === '' || weight === '' || !parseFloat(weight) || exerciseTitle.length > 25 || weight.length > 6){
       return NextResponse.json(
         { personalBest: null, message: 'Valid exercise title or weight is missing!' },
         { status: 400 }

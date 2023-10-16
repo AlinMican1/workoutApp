@@ -16,7 +16,7 @@ export const POST = async (req: Request) =>{
         return NextResponse.json({scheduleCard: null , message: "ID not found"}, {status:409})
     }
 
-    if(weight.length > 4 || sets.length > 3 || reps.length > 4){
+    if(weight.length > 6 || sets.length > 3 || reps.length > 4){
         return NextResponse.json({scheduleCard: null , message: "Keep the values realistic"}, {status:409})
     }
 

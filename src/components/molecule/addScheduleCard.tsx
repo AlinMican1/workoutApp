@@ -82,7 +82,7 @@ function AddSchedule ({ id }: { id: string }){
         }else if(!parseFloat(weight)){
             setWeightError(true);
             setWeightErrorMsg('Insert a number'); 
-        }else if(weight.length > 4){
+        }else if(weight.length > 5){
             setWeightError(true);
             setWeightErrorMsg('Keep it realistic please :)'); 
         }
@@ -112,7 +112,7 @@ function AddSchedule ({ id }: { id: string }){
         }else if(!parseFloat(reps)){
             setRepsError(true);
             setRepsErrorMsg('Insert a number'); 
-        }else if(reps.length > 4){
+        }else if(reps.length > 6){
             setRepsError(true);
             setRepsErrorMsg('Keep it realistic please :)'); 
         }

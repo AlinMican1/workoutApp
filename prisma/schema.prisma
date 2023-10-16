@@ -41,12 +41,12 @@ model ScheduleCard{
     id        String   @id @default(uuid())
     day       String
     exerciseTitle String
-    weight    Int
+    weight    Decimal
     sets      Int
     reps      Int
-    firstWeight Int?
-    firstSet Int?
-    firstRep Int?
+    firstWeight Decimal
+    firstSet Int
+    firstRep Int
     
     createdAt  DateTime @default(now())
     updatedAt DateTime? @updatedAt
@@ -72,7 +72,7 @@ model ScheduleCard{
 model PersonalBest{
   id        String   @id @default(uuid())
   exerciseTitle  String
-  weight    Int
+  weight    Decimal
   color     String @default("boxDarkPink")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
