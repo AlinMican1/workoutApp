@@ -1,7 +1,7 @@
 import React from 'react'
 import TopNavBar from '@/components/atom/topNavBar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDumbbell } from '@fortawesome/free-solid-svg-icons'
+import { faDumbbell, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { getServerSession } from "next-auth/next"
 import { authOptions } from '@/lib/auth';
 import BreakCard from '@/components/atom/breakCard'
@@ -11,7 +11,8 @@ import Provider from '@/lib/client-provider'
 import { ScheduleCard } from '@/components/atom/scheduleCard'
 import { DeleteScheduleCard } from '@/components/atom/deleteSchedule'
 import { EditScheduleCard } from '@/components/atom/editSchedule'
-
+import DeletePlanBtn, {  PlanCard } from '@/components/molecule/planCard'
+import { DeleteButton } from '@/components/atom/button'
 
 export async function generateStaticParams() {
   const plans = await fetch(process.env.URL + '/api/user/newPlan/Find');
@@ -62,7 +63,8 @@ async function getScheduleCard(WorkoutId: string) {
     console.log('Failed to fetch data');
   }
 }
- 
+
+
 
 export default async function WorkoutPlanSchedule({ params }: { params: { id: string } }){
   const session = await getServerSession(authOptions)
@@ -74,8 +76,6 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
   const scheduleCard = await getScheduleCard(params.id);
   const planDetail = await getPlan(params.id, userEmail);
   
-  
- 
   let plan;
   if (!planDetail){
     return (
@@ -97,8 +97,23 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
         <TopNavBar>
           <h1 className='p-3 text-lg font-semibold'>
             {plan.title} <FontAwesomeIcon icon={faDumbbell} className='text-white'/>
+            
           </h1>
-          <AddScheduleCard id={params.id}/>
+          <div className='flex justify-between '>
+            <div className='flex justify-start gap-2 '>
+              <div className='justify-start'>
+                <AddScheduleCard id={params.id}/>
+              </div>
+              </div>
+              <div className='flex justify-end gap-4 text-lg mx-2'>
+                
+                <DeleteButton>
+                  <DeletePlanBtn cardId={params.id} />
+                </DeleteButton>
+              </div>
+            
+          </div>
+         
         </TopNavBar>
       </header>
       <main>
@@ -147,8 +162,11 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
             const dateMDY = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
 
             const updateDate = new Date(matchingCard.updatedAt);
-
-                 //Check for updated weight to display message. If everything is the same then card hasn't been updated else check for all possible outcomes.
+                
+              
+                 
+                  
+                  //Check for updated weight to display message. If everything is the same then card hasn't been updated else check for all possible outcomes.
                  let updatedWeight = "";
                  let dateDifference ;
                  let increase = 0;
@@ -173,6 +191,7 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
                  }
 
             return (
+              
               <ScheduleCard key={index + cardIndex} color={color} exerciseTitle={matchingCard.exerciseTitle} date={dateMDY} scheduleId={matchingCard.id}>
                 <div className='flex justify-start mt-2 gap-2 '>
                   <span className='border rounded p-[4px] text-textTitle text-normal'>{matchingCard.weight} kg</span>

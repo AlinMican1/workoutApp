@@ -51,7 +51,10 @@ function AddSchedule ({ id }: { id: string }){
 
     const handleClick = (day:string) =>{
         setDay(day);
+      
+        
     };
+    
 
     const onSubmit = async (e: React.FormEvent) =>{
         e.preventDefault()
@@ -187,17 +190,17 @@ function AddSchedule ({ id }: { id: string }){
         <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}> 
             <form  onSubmit={onSubmit}>
                 <h3 className='mt-2 justify-center flex text-titleColor'>Add Card</h3>
-                <div className='text-textColor mt-2'>Select a day</div>
-                <div className='flex mt-2 mb-2 flex-cols gap-4 justify-center'>
-                    <SelectDayButton nameButton='Mo' onClick={() => handleClick("monday")}/>
-                    <SelectDayButton nameButton='Tu' onClick={() => handleClick("tuesday")}/>
-                    <SelectDayButton nameButton='We' onClick={() => handleClick("wednesday")}/>
-                    <SelectDayButton nameButton='Th' onClick={() => handleClick("thursday")}/>
-                    <SelectDayButton nameButton='Fr' onClick={() => handleClick("friday")}/>
-                    <SelectDayButton nameButton='Sa' onClick={() => handleClick("saturday")}/>
-                    <SelectDayButton nameButton='Su' onClick={() => handleClick("sunday")}/>
+                <div className='text-textColor mt-2'>Tap a day</div>
+                <div className='flex mt-2 mb-2 flex-cols gap-[10px] justify-center border p-2 rounded-lg'>
+                    <SelectDayButton nameButton='Mo' onClick={() => handleClick("monday")} day={day} />
+                    <SelectDayButton nameButton='Tu' onClick={() => handleClick("tuesday")}  day={day} />
+                    <SelectDayButton nameButton='We' onClick={() => handleClick("wednesday")} day={day} />
+                    <SelectDayButton nameButton='Th' onClick={() => handleClick("thursday")} day={day}/>
+                    <SelectDayButton nameButton='Fr' onClick={() => handleClick("friday")} day={day}/>
+                    <SelectDayButton nameButton='Sa' onClick={() => handleClick("saturday")} day={day}/>
+                    <SelectDayButton nameButton='Su' onClick={() => handleClick("sunday")} day={day}/>
                 </div>
-                {dayError && <p className="text-red-500 text-sm">{dayErrorMsg}</p>}
+                {dayError && <p className="text-red-500 text-sm ">{dayErrorMsg}</p>}
                 {/* <InputField
                     name="day"
                     value={day}
@@ -206,7 +209,7 @@ function AddSchedule ({ id }: { id: string }){
                     error={dayError}
                     errorMessage={dayErrorMsg}
                 /> */}
-
+                <div className='text-titleColor uppercase font-semibold flex justify-center m-2'>{day}</div>
                 <InputField
                     name="exercise"
                     value={exerciseTitle}

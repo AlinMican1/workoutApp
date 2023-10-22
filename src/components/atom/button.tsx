@@ -116,28 +116,28 @@ export const UpdateButton = ({children,onClick} :UpdateButtonProps) => {
 
 interface SelectDayButtonProps{
   nameButton: string,
-  onClick?: () => void
-
+  onClick: () => void,
+  day: string,
+  
 }
 
-
-export const SelectDayButton =({nameButton, onClick}: SelectDayButtonProps) =>{
-  const [selectedDay, setSelectedDay] = useState('');
-
-  const handleButtonClick = () => {
-    setSelectedDay(nameButton);
-    if (onClick) {
-      onClick();
-    }
-  };
-
+export const SelectDayButton = ({ nameButton, onClick, day }:SelectDayButtonProps) => {
+  
+  
+ 
   return (
-    <button type="button"
-    className={`text-textColor active:text-lg text-[14px]`}
-    onClick={onClick}
-  >
-    {nameButton}
-  </button>
-  )
-}
+    <button
+      type="button"
+      className={`text-textColor  text-[14px] `}
+      onClick={() => {
+        // Update the selectedDay state when a button is clicked
+        onClick();
+        
+       
+      }}
+    >
+      {nameButton}
+    </button>
+  );
+};
 

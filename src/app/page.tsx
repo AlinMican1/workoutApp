@@ -9,7 +9,7 @@ export default async function Home() {
   
   return (
     <div className="border m-2 rounded-xl border-darkgray">  
-      <h1 className="text-lg font-bold px-3 pt-3 ">
+      <h1 className="text-lg font-bold px-3 pt-3 capitalize">
         
         <DateTime />{session?.user.username}
 

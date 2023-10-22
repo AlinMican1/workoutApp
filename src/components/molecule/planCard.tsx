@@ -5,6 +5,7 @@ import { DeleteButton } from '../atom/button'
 interface PlanCardProps {
     title: string
     cardId: string
+
     
 }
 export const PlanCard = ({title,cardId}:PlanCardProps) => {
@@ -13,13 +14,19 @@ export const PlanCard = ({title,cardId}:PlanCardProps) => {
   const OpenPlan  = (cardId:string) =>{
     router.push(`/workout/${cardId}`)
   }
-
+  //Added this in case of no feature
+  if(!cardId){
+    return null
+  }
   return (
     <button onClick={() => OpenPlan(cardId)}>
     <div className='bg-boxDarkPink h-24 m-2 rounded rounded-lg border border-specialPink '>
-      <h1 className='flex justify-center text-titleColor m-6'>
+      <h1 className='flex justify-center text-titleColor uppercase font-semibold text-lg mt-2'>
         {title}
+
+        
       </h1>
+      <div className='text-textColor mt-2'></div>
     
     {/* <div>
       <DeleteButton>
@@ -33,6 +40,8 @@ export const PlanCard = ({title,cardId}:PlanCardProps) => {
     
   )
 }
+
+
 
 interface DeleteBtnProps {
   cardId: string; // Update the type accordingly
