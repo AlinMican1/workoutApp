@@ -12,7 +12,7 @@ export default async function Home() {
       <h1 className="text-lg font-bold px-3 pt-3 capitalize">
         
         <DateTime />{session?.user.username}
-
+        
       </h1>
       <hr className=" my-2 mx-3"></hr>
       
