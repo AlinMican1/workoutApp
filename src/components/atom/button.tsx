@@ -52,23 +52,22 @@ interface DeleteButtonProps{
 }
 
 export const DeleteButton = ({children} :DeleteButtonProps) => {
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  // const [openModal, setOpenModal] = useState<boolean>(false);
   return (
     <div>
-    <button onClick={() => setOpenModal(true)}>
+    <button>
       <FontAwesomeIcon className='text-[14px] text-red-600' icon={faTrash}/>
       </button>
-      <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}>
+      {/* <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}>
       
-                <h3 className='mt-2 justify-center flex text-textError mt-4'>DELETE WORKOUT PLAN?</h3>
+                <h3 className='mt-2 justify-center flex text-textError mt-4'>DELETE IT?</h3>
 
                 <div className='flex flex-col justify-center'>
                   {children}
-                  {/* <button onClick={onClick} /> */}
-                    
+
                 </div>
            
-        </PlanModal>
+        </PlanModal> */}
       </div>
   )
 }
@@ -117,28 +116,28 @@ export const UpdateButton = ({children,onClick} :UpdateButtonProps) => {
 
 interface SelectDayButtonProps{
   nameButton: string,
-  onClick?: () => void
-
+  onClick: () => void,
+  day: string,
+  
 }
 
-
-export const SelectDayButton =({nameButton, onClick}: SelectDayButtonProps) =>{
-  const [selectedDay, setSelectedDay] = useState('');
-
-  const handleButtonClick = () => {
-    setSelectedDay(nameButton);
-    if (onClick) {
-      onClick();
-    }
-  };
-
+export const SelectDayButton = ({ nameButton, onClick, day }:SelectDayButtonProps) => {
+  
+  
+ 
   return (
-    <button type="button"
-    className={`text-textColor active:text-lg text-[14px]`}
-    onClick={onClick}
-  >
-    {nameButton}
-  </button>
-  )
-}
+    <button
+      type="button"
+      className={`text-textColor  text-[14px] `}
+      onClick={() => {
+        // Update the selectedDay state when a button is clicked
+        onClick();
+        
+       
+      }}
+    >
+      {nameButton}
+    </button>
+  );
+};
 

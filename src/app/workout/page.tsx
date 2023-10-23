@@ -39,6 +39,7 @@ export default async function WorkoutPlanPage() {
     
     
     
+    
     return (
         <Provider session={session}>
             <TopNavBar>

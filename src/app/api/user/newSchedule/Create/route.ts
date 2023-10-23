@@ -1,9 +1,6 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
-
-
-
 export const POST = async (req: Request) =>{
     
     const {day, exerciseTitle,weight,sets,reps,email,id} = await req.json();
@@ -13,10 +10,18 @@ export const POST = async (req: Request) =>{
     }
 
     if(!parseFloat(weight) || !parseFloat(sets) || !parseFloat(reps)){
-        return NextResponse.json({scheduleCard: null , message: "Input not a number"}, {status:409})
+        return NextResponse.json({scheduleCard: null , message: "Input is not a number"}, {status:409})
     }
     if(!id){
         return NextResponse.json({scheduleCard: null , message: "ID not found"}, {status:409})
+    }
+
+    if(weight.length > 6 || sets.length > 3 || reps.length > 4){
+        return NextResponse.json({scheduleCard: null , message: "Keep the values realistic"}, {status:409})
+    }
+
+    if(exerciseTitle.length > 25){
+        return NextResponse.json({scheduleCard: null , message: "The title is too long"}, {status:409})
     }
 
     const userExist = await db.user.findUnique({
@@ -34,6 +39,9 @@ export const POST = async (req: Request) =>{
                 weight: parseFloat(weight),
                 sets: parseFloat(sets),
                 reps: parseFloat(reps),
+                firstWeight: parseFloat(weight),
+                firstSet: parseFloat(sets),
+                firstRep: parseFloat(reps),
                 Schedule: { connect: { id: id } },
                 
             }

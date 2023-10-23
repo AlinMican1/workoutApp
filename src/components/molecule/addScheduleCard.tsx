@@ -51,11 +51,79 @@ function AddSchedule ({ id }: { id: string }){
 
     const handleClick = (day:string) =>{
         setDay(day);
+      
+        
     };
+    
 
     const onSubmit = async (e: React.FormEvent) =>{
         e.preventDefault()
-        
+
+        if(day === ''){
+            setDayError(true);
+            setDayErrorMsg('Select a day');
+        }
+        else{
+            setDayError(false);
+            setDayErrorMsg('');
+        }
+
+        if(exerciseTitle === '') {
+            setExerciseTitleError(true);
+            setExerciseTitleErrorMsg('Insert a exercise title'); 
+        }else if(exerciseTitle.length > 25){
+            setExerciseTitleError(true);
+            setExerciseTitleErrorMsg('Exercise title too long'); 
+        }else{
+            setExerciseTitleError(false);
+            setExerciseTitleErrorMsg(''); 
+        }
+
+        if(weight === '') {
+            setWeightError(true);
+            setWeightErrorMsg('Insert a weight'); 
+        }else if(!parseFloat(weight)){
+            setWeightError(true);
+            setWeightErrorMsg('Insert a number'); 
+        }else if(weight.length > 5){
+            setWeightError(true);
+            setWeightErrorMsg('Keep it realistic please :)'); 
+        }
+        else{
+            setWeightError(false);
+            setWeightErrorMsg('');
+        }
+
+        if(sets === '') {
+            setSetsError(true);
+            setSetsErrorMsg('Insert sets'); 
+        }else if(!parseFloat(sets)){
+            setSetsError(true);
+            setSetsErrorMsg('Insert a number'); 
+        }else if(sets.length > 3){
+            setSetsError(true);
+            setSetsErrorMsg('Keep it realistic please :)'); 
+        }
+        else{
+            setSetsError(false);
+            setSetsErrorMsg(''); 
+        }
+
+        if(reps === '') {
+            setRepsError(true);
+            setRepsErrorMsg('Insert reps'); 
+        }else if(!parseFloat(reps)){
+            setRepsError(true);
+            setRepsErrorMsg('Insert a number'); 
+        }else if(reps.length > 6){
+            setRepsError(true);
+            setRepsErrorMsg('Keep it realistic please :)'); 
+        }
+        else{
+            setRepsError(false);
+            setRepsErrorMsg('');
+        }
+
         try {
             const response = await fetch('/api/user/newSchedule/Create' ,{
                 method: 'POST',
@@ -122,25 +190,26 @@ function AddSchedule ({ id }: { id: string }){
         <PlanModal isOpen={openModal} isClose={() => setOpenModal(false)}> 
             <form  onSubmit={onSubmit}>
                 <h3 className='mt-2 justify-center flex text-titleColor'>Add Card</h3>
-                <div className='text-textColor mt-2'>Select a day</div>
-                <div className='flex mt-2 mb-2 flex-cols gap-4 justify-center'>
-                    <SelectDayButton nameButton='Mo' onClick={() => handleClick("monday")}/>
-                    <SelectDayButton nameButton='Tu' onClick={() => handleClick("tuesday")}/>
-                    <SelectDayButton nameButton='We' onClick={() => handleClick("wednesday")}/>
-                    <SelectDayButton nameButton='Th' onClick={() => handleClick("thursday")}/>
-                    <SelectDayButton nameButton='Fr' onClick={() => handleClick("friday")}/>
-                    <SelectDayButton nameButton='Sa' onClick={() => handleClick("saturday")}/>
-                    <SelectDayButton nameButton='Su' onClick={() => handleClick("sunday")}/>
+                <div className='text-textColor mt-2'>Tap a day</div>
+                <div className='flex mt-2 mb-2 flex-cols gap-[10px] justify-center border p-2 rounded-lg'>
+                    <SelectDayButton nameButton='Mo' onClick={() => handleClick("monday")} day={day} />
+                    <SelectDayButton nameButton='Tu' onClick={() => handleClick("tuesday")}  day={day} />
+                    <SelectDayButton nameButton='We' onClick={() => handleClick("wednesday")} day={day} />
+                    <SelectDayButton nameButton='Th' onClick={() => handleClick("thursday")} day={day}/>
+                    <SelectDayButton nameButton='Fr' onClick={() => handleClick("friday")} day={day}/>
+                    <SelectDayButton nameButton='Sa' onClick={() => handleClick("saturday")} day={day}/>
+                    <SelectDayButton nameButton='Su' onClick={() => handleClick("sunday")} day={day}/>
                 </div>
-                <InputField
+                {dayError && <p className="text-red-500 text-sm ">{dayErrorMsg}</p>}
+                {/* <InputField
                     name="day"
                     value={day}
                     onChange={(e) => setDay(e.target.value)}
                     placeholder="day"
                     error={dayError}
                     errorMessage={dayErrorMsg}
-                />
-
+                /> */}
+                <div className='text-titleColor uppercase font-semibold flex justify-center m-2'>{day}</div>
                 <InputField
                     name="exercise"
                     value={exerciseTitle}

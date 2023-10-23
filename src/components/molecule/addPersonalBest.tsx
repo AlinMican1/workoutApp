@@ -82,7 +82,7 @@ function AddPersonalRecord (){
         }else if(!parseFloat(weight)){
             setWeightError(true);
             setWeightErrorMsg('Insert a number'); 
-        }else if(weight.length > 4){
+        }else if(weight.length > 6){
             setWeightError(true);
             setWeightErrorMsg('Keep it realistic please :)'); 
         }

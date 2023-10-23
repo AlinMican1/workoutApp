@@ -37,20 +37,28 @@ model WorkoutPlan {
 
   @@index([planId])
 }
-
 model ScheduleCard{
     id        String   @id @default(uuid())
     day       String
     exerciseTitle String
-    weight    Int?
-    sets      Int?
-    reps      Int?
+    weight    Decimal
+    sets      Int
+    reps      Int
+    firstWeight Decimal
+    firstSet Int
+    firstRep Int
+    
+    createdAt  DateTime @default(now())
+    updatedAt DateTime? @updatedAt
     Schedule  WorkoutPlan @relation(fields:[ScheduleID], references: [id])
+    
     ScheduleID String
    
     //ScheduleCardWeights ScheduleCardWeight[]
     @@index([ScheduleID])
 }
+
+
 // model ScheduleCardWeight{
 //     id        String   @id @default(uuid())
 //     weight    Int
@@ -64,7 +72,7 @@ model ScheduleCard{
 model PersonalBest{
   id        String   @id @default(uuid())
   exerciseTitle  String
-  weight    Int
+  weight    Decimal
   color     String @default("boxDarkPink")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
