@@ -1,3 +1,4 @@
+
 import React from 'react'
 import TopNavBar from '@/components/atom/topNavBar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,7 +19,9 @@ import { DeleteButton, DeleteButton2 } from '@/components/atom/button'
 export async function generateStaticParams() {
   const plans = await fetch(process.env.URL + '/api/user/newPlan/Find');
   const data = await plans.json();
-  
+  if(data.length <= 0){
+    return "No data"
+  }
   return data.map((record:any) =>{
       id: record.id
   })
