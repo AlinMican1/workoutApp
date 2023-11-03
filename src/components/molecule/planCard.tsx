@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { useRouter } from 'next/navigation'
-import { DeleteButton } from '../atom/button'
+import { DeleteButton, DeleteButton2 } from '../atom/button'
 interface PlanCardProps {
     title: string
     cardId: string
@@ -19,6 +19,7 @@ export const PlanCard = ({title,cardId}:PlanCardProps) => {
     return null
   }
   return (
+    <>
     <button onClick={() => OpenPlan(cardId)}>
     <div className='bg-boxDarkPink h-24 m-2 rounded rounded-lg border border-specialPink '>
       <h1 className='flex justify-center text-titleColor uppercase font-semibold text-lg mt-2'>
@@ -28,34 +29,33 @@ export const PlanCard = ({title,cardId}:PlanCardProps) => {
       </h1>
       <div className='text-textColor mt-2'></div>
     
-    {/* <div>
-      <DeleteButton>
-        <DeletePlanBtn cardId={cardId} />
-      </DeleteButton>
-    </div> */}
+
     </div>
+
    </button>
+       {/* <div>
+      <DeleteButton2>
+        <DeletePlanBtn cardId={cardId} />
+      </DeleteButton2>
+    </div>  */}
   
-  
-    
+    </>
   )
 }
 
-
-
 interface DeleteBtnProps {
-  cardId: string; // Update the type accordingly
+  cardId: string; 
 }
 
 const DeletePlanBtn: React.FC<DeleteBtnProps> = ({ cardId }) => {
   const router = useRouter();
+  
   const handleClick = async () => {
-    
+    console.log(cardId)
     try{
       
-      const response = await fetch ('api/user/newPlan/Delete',{
+      const response = await fetch (`/api/user/newPlan/Delete` ,{
         method: 'POST',
-       
         body: JSON.stringify({
           cardId
           
@@ -66,7 +66,7 @@ const DeletePlanBtn: React.FC<DeleteBtnProps> = ({ cardId }) => {
         
       })
       if(response.ok){
-        router.refresh()
+        router.push('/workout')
       }
     }catch(error){
       

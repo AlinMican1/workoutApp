@@ -11,8 +11,9 @@ import Provider from '@/lib/client-provider'
 import { ScheduleCard } from '@/components/atom/scheduleCard'
 import { DeleteScheduleCard } from '@/components/atom/deleteSchedule'
 import { EditScheduleCard } from '@/components/atom/editSchedule'
-import DeletePlanBtn, {  PlanCard } from '@/components/molecule/planCard'
-import { DeleteButton } from '@/components/atom/button'
+import DeletePlanBtn, {   PlanCard } from '@/components/molecule/planCard'
+import { DeleteButton, DeleteButton2 } from '@/components/atom/button'
+
 
 export async function generateStaticParams() {
   const plans = await fetch(process.env.URL + '/api/user/newPlan/Find');
@@ -101,15 +102,15 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
           </h1>
           <div className='flex justify-between '>
             <div className='flex justify-start gap-2 '>
-              <div className='justify-start'>
+              <div className='justify-start px-3'>
                 <AddScheduleCard id={params.id}/>
               </div>
               </div>
               <div className='flex justify-end gap-4 text-lg mx-2'>
                 
-                <DeleteButton>
+                <DeleteButton2>
                   <DeletePlanBtn cardId={params.id} />
-                </DeleteButton>
+                </DeleteButton2>
               </div>
             
           </div>
