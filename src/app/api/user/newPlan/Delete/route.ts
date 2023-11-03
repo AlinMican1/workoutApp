@@ -24,8 +24,9 @@ export async function POST(request: Request) {
         }
       }
     }catch(error){
-      console.log(error)
+      
       return NextResponse.json({message:"Plan does not exist"} , {status:500})
     }
+    return NextResponse.json({message:"Plan does not exist"} , {status:500})
 
 }
