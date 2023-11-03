@@ -223,7 +223,7 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
   ))
 ) : (
   <div>
-    <p className='text-textColor font-semibold flex justify-center m-2 '>Add a your exercises</p>
+    <p className='text-textColor font-semibold flex justify-center m-2 '>Add your exercises</p>
   </div>
 )}
   
