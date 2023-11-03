@@ -27,6 +27,7 @@ export async function POST(request: Request) {
       console.log(error)
       return NextResponse.json({message:"Personal best record does not exist"} , {status:500})
     }
+    //Added this to fix vercel error
     return NextResponse.json({message:"Plan does not exist"} , {status:500})
 
 }
