@@ -102,7 +102,7 @@ export default async function WorkoutPlanSchedule({ params }: { params: { id: st
           </h1>
           <div className='flex justify-between '>
             <div className='flex justify-start gap-2 '>
-              <div className='justify-start'>
+              <div className='justify-start px-3'>
                 <AddScheduleCard id={params.id}/>
               </div>
               </div>

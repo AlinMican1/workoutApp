@@ -4,7 +4,7 @@ npx prisma migrate dev --name init - migrate the new database / update.
 git push origin [branch] to push branch.
 git pull origin main update with branch from repo.
 npx prisma studio to run prisma.
-
+npx prisma db push - push schema.
 CREATE INVOCATION ERROR DO THIS:
     -npx prisma generate
     -npx prisma db push
