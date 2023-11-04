@@ -14,8 +14,7 @@ import { DeleteScheduleCard } from '@/components/atom/deleteSchedule'
 import { EditScheduleCard } from '@/components/atom/editSchedule'
 import DeletePlanBtn, {   PlanCard } from '@/components/molecule/planCard'
 import { DeleteButton, DeleteButton2 } from '@/components/atom/button'
-import { NextResponse } from 'next/server'
-import { db } from '@/lib/db'
+import { GetAllPlans } from '../../../../utils/getAllPlans'
 
 
 // export async function generateStaticParams(id:string) {
@@ -25,40 +24,8 @@ import { db } from '@/lib/db'
 //   // return data.map((record:any) =>{
 //   //     id: record.id
 //   // })
-//   //VERCEL BUG
-//   if (!id) {
-//     return NextResponse.json({ message: "Error workoutPlanId does not exist" }, { status: 409 });
-//   }
-
-//   const getSchedule = await db.workoutPlan.findMany({
-//     where: {
-//       id: id,
-//     },
-//     select: {
-//       ScheduleCards: {
-//         select: {
-//           id: true,
-//           day: true,
-//           exerciseTitle: true,
-//           weight: true,
-//           sets: true,
-//           reps: true,
-//           firstWeight: true,
-//           firstRep: true,
-//           firstSet: true,
-//           createdAt:true,
-//           updatedAt: true,
-//           //ScheduleCardWeights: true,
-//         },
-//       },
-//     },
-//   });
-
-//   if (!getSchedule) {
-//     return NextResponse.json({ message: "Schedule doesn't exist" }, { status: 404 });
-//   }
   
-//   return NextResponse.json(getSchedule, { status: 201 });
+  
 // }
 
 async function getPlan(id:string,userEmail:string){
@@ -105,9 +72,9 @@ async function getScheduleCard(WorkoutId: string) {
 
 
 export default async function WorkoutPlanSchedule({ params }: { params: { id: string } }){
-  //ADD THIS FOR VERCEL
-  //await generateStaticParams(params.id);
-  //
+  
+  await GetAllPlans(params.id)
+  console.log(GetAllPlans(params.id))
   const session = await getServerSession(authOptions)
   const userEmail = session?.user.email?.toString();
   
