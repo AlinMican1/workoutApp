@@ -14,17 +14,50 @@ import { DeleteScheduleCard } from '@/components/atom/deleteSchedule'
 import { EditScheduleCard } from '@/components/atom/editSchedule'
 import DeletePlanBtn, {   PlanCard } from '@/components/molecule/planCard'
 import { DeleteButton, DeleteButton2 } from '@/components/atom/button'
+import { NextResponse } from 'next/server'
+import { db } from '@/lib/db'
 
 
-export async function generateStaticParams() {
-  const plans = await fetch(process.env.URL + '/api/user/newPlan/Find');
-  const data = await plans.json();
-  if(data.length <= 0){
-    return "No data"
+export async function generateStaticParams(id:string) {
+  // const plans = await fetch(process.env.URL + '/api/user/newPlan/Find');
+  // const data = await plans.json();
+  
+  // return data.map((record:any) =>{
+  //     id: record.id
+  // })
+  if (!id) {
+    return NextResponse.json({ message: "Error workoutPlanId does not exist" }, { status: 409 });
   }
-  return data.map((record:any) =>{
-      id: record.id
-  })
+
+  const getSchedule = await db.workoutPlan.findMany({
+    where: {
+      id: id,
+    },
+    select: {
+      ScheduleCards: {
+        select: {
+          id: true,
+          day: true,
+          exerciseTitle: true,
+          weight: true,
+          sets: true,
+          reps: true,
+          firstWeight: true,
+          firstRep: true,
+          firstSet: true,
+          createdAt:true,
+          updatedAt: true,
+          //ScheduleCardWeights: true,
+        },
+      },
+    },
+  });
+
+  if (!getSchedule) {
+    return NextResponse.json({ message: "Schedule doesn't exist" }, { status: 404 });
+  }
+  
+  return NextResponse.json(getSchedule, { status: 201 });
 }
 
 async function getPlan(id:string,userEmail:string){
@@ -71,6 +104,7 @@ async function getScheduleCard(WorkoutId: string) {
 
 
 export default async function WorkoutPlanSchedule({ params }: { params: { id: string } }){
+  const generate =  await generateStaticParams(params.id);
   const session = await getServerSession(authOptions)
   const userEmail = session?.user.email?.toString();
   
