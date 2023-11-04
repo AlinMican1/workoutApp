@@ -14,40 +14,40 @@ import { db } from '@/lib/db';
 
 
 //Get all personal Best 
-export async function generateStaticParams(id:string,userEmail:string) {
-    // const bestRecords = await fetch(process.env.URL + '/api/user/newRecord/Find');
-    // const data = await bestRecords.json();
+// export async function generateStaticParams(id:string,userEmail:string) {
+//     // const bestRecords = await fetch(process.env.URL + '/api/user/newRecord/Find');
+//     // const data = await bestRecords.json();
     
-    // return data.map((record:any) =>{
-    //     id: record.id
-    // })
+//     // return data.map((record:any) =>{
+//     //     id: record.id
+//     // })
     
-    //VERCEL BUG 
-    if(!userEmail){
-        return NextResponse.json({message:"Error email does not exist"} , {status:409});
-      }
-    if(!id){
-        return NextResponse.json({message:"Id Not found"} , {status:409});
-    }
-    const record = await db.user.findUnique({
-        where:{
-            email: userEmail,
-        },
-        select:{
-            PersonalBests:{
-                where:{
-                    id
-                }
-            }
-        }
-    })
+//     //VERCEL BUG 
+//     if(!userEmail){
+//         return NextResponse.json({message:"Error email does not exist"} , {status:409});
+//       }
+//     if(!id){
+//         return NextResponse.json({message:"Id Not found"} , {status:409});
+//     }
+//     const record = await db.user.findUnique({
+//         where:{
+//             email: userEmail,
+//         },
+//         select:{
+//             PersonalBests:{
+//                 where:{
+//                     id
+//                 }
+//             }
+//         }
+//     })
     
-    if(!record || !record.PersonalBests || record.PersonalBests.length === 0){
+//     if(!record || !record.PersonalBests || record.PersonalBests.length === 0){
         
-        return NextResponse.json({message:"This Page does not exist"} , {status:404});
-    }
-    return NextResponse.json(record, {status:201})
-  }
+//         return NextResponse.json({message:"This Page does not exist"} , {status:404});
+//     }
+//     return NextResponse.json(record, {status:201})
+//   }
 
 //Get only the Record with that id
 async function getBestRecord(id:string,userEmail:string){
@@ -82,7 +82,7 @@ export default async function BestRecordPage({ params }: { params: { id: string 
     }
     const recordDetail = await getBestRecord(params.id, userEmail)
     //ADDED FOR VERCEL BUG
-    await generateStaticParams(params.id,userEmail)
+    //await generateStaticParams(params.id,userEmail)
     //
     let personalBest;
     if (!recordDetail){
