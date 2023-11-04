@@ -22,7 +22,7 @@ export async function generateStaticParams(id:string,userEmail:string) {
     //     id: record.id
     // })
     
-    
+    //VERCEL BUG 
     if(!userEmail){
         return NextResponse.json({message:"Error email does not exist"} , {status:409});
       }
@@ -81,7 +81,9 @@ export default async function BestRecordPage({ params }: { params: { id: string 
         return null
     }
     const recordDetail = await getBestRecord(params.id, userEmail)
+    //ADDED FOR VERCEL BUG
     const generate = await generateStaticParams(params.id,userEmail)
+    //
     let personalBest;
     if (!recordDetail){
         return (
