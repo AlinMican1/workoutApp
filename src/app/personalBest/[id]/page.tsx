@@ -82,7 +82,7 @@ export default async function BestRecordPage({ params }: { params: { id: string 
     }
     const recordDetail = await getBestRecord(params.id, userEmail)
     //ADDED FOR VERCEL BUG
-    const generate = await generateStaticParams(params.id,userEmail)
+    await generateStaticParams(params.id,userEmail)
     //
     let personalBest;
     if (!recordDetail){
