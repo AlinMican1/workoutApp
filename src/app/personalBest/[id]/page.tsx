@@ -9,16 +9,44 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from '@/lib/auth';
 
 import { EditPB } from '@/components/atom/editPB';
+import { NextResponse } from 'next/server';
+import { db } from '@/lib/db';
 
 
 //Get all personal Best 
-export async function generateStaticParams() {
-    const bestRecords = await fetch(process.env.URL + '/api/user/newRecord/Find');
-    const data = await bestRecords.json();
+export async function generateStaticParams(id:string,userEmail:string) {
+    // const bestRecords = await fetch(process.env.URL + '/api/user/newRecord/Find');
+    // const data = await bestRecords.json();
     
-    return data.map((record:any) =>{
-        id: record.id
+    // return data.map((record:any) =>{
+    //     id: record.id
+    // })
+    
+    
+    if(!userEmail){
+        return NextResponse.json({message:"Error email does not exist"} , {status:409});
+      }
+    if(!id){
+        return NextResponse.json({message:"Id Not found"} , {status:409});
+    }
+    const record = await db.user.findUnique({
+        where:{
+            email: userEmail,
+        },
+        select:{
+            PersonalBests:{
+                where:{
+                    id
+                }
+            }
+        }
     })
+    
+    if(!record || !record.PersonalBests || record.PersonalBests.length === 0){
+        
+        return NextResponse.json({message:"This Page does not exist"} , {status:404});
+    }
+    return NextResponse.json(record, {status:201})
   }
 
 //Get only the Record with that id
@@ -45,6 +73,7 @@ async function getBestRecord(id:string,userEmail:string){
 }
    
 export default async function BestRecordPage({ params }: { params: { id: string } }) {
+    
     const session = await getServerSession(authOptions)
     const userEmail = session?.user.email?.toString();
     
@@ -52,6 +81,7 @@ export default async function BestRecordPage({ params }: { params: { id: string 
         return null
     }
     const recordDetail = await getBestRecord(params.id, userEmail)
+    const generate = await generateStaticParams(params.id,userEmail)
     let personalBest;
     if (!recordDetail){
         return (
