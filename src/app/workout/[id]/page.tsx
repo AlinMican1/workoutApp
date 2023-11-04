@@ -25,6 +25,7 @@ export async function generateStaticParams(id:string) {
   // return data.map((record:any) =>{
   //     id: record.id
   // })
+  //VERCEL BUG
   if (!id) {
     return NextResponse.json({ message: "Error workoutPlanId does not exist" }, { status: 409 });
   }
@@ -104,7 +105,9 @@ async function getScheduleCard(WorkoutId: string) {
 
 
 export default async function WorkoutPlanSchedule({ params }: { params: { id: string } }){
-  const generate =  await generateStaticParams(params.id);
+  //ADD THIS FOR VERCEL
+  await generateStaticParams(params.id);
+  //
   const session = await getServerSession(authOptions)
   const userEmail = session?.user.email?.toString();
   
