@@ -41,6 +41,7 @@ export const DeleteRecord: React.FC<DeleteRecordProps> = ({ cardId }) => {
         })
         if(response.ok){
           router.push('/personalBest');
+          router.refresh()
         }
       }catch(error){
         

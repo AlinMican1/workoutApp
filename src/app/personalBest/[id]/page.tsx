@@ -9,12 +9,9 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from '@/lib/auth';
 
 import { EditPB } from '@/components/atom/editPB';
-import { NextResponse } from 'next/server';
-import { db } from '@/lib/db';
 import { GetAllRecords } from '../../../../utils/getAllRecords';
 
 
-//Get all personal Best 
 // export async function generateStaticParams() {
 //     const bestRecords = await fetch(process.env.URL + '/api/user/newRecord/Find');
 //     const data = await bestRecords.json();

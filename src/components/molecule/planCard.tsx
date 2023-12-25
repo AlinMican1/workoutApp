@@ -67,6 +67,7 @@ const DeletePlanBtn: React.FC<DeleteBtnProps> = ({ cardId }) => {
       })
       if(response.ok){
         router.push('/workout')
+        router.refresh()
       }
     }catch(error){
       

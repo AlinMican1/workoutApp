@@ -62,6 +62,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
     if (!getSchedule) {
       return NextResponse.json({ message: "Schedule doesn't exist" }, { status: 404 });
     }
+    
     return NextResponse.json(getSchedule, { status: 201 });
+
   }
   

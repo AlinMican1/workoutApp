@@ -23,10 +23,12 @@ export default async function PersonalBestPage() {
           },})
         if(response.ok){
             records = await response.json()
+            
         }else {
         console.error('Failed to fetch data');
       }
-
+      
+    console.log(records.PersonalBests.length)
     return(
         <Provider session={session}>
             <TopNavBar>
@@ -37,8 +39,8 @@ export default async function PersonalBestPage() {
             </TopNavBar>
             
             <div className="border m-2 mt-24 rounded-xl border-darkgray">
-            {records.length === 0 ? (
-                <h1 className='text-textColor font-semibold flex justify-center m-2  '>Add your personal best</h1>
+            {records && records.PersonalBests.length === 0 ? (
+                <h1 className='text-textColor font-semibold flex justify-center m-2'>Add your personal best</h1>
               ) : (
                 <div className={`grid grid-cols-2 gap-0`}>
                      
