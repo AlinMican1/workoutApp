@@ -1,15 +1,15 @@
-// import React from 'react'
-// import { faStar } from '@fortawesome/free-solid-svg-icons'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React from 'react'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
-// import TopNavBar from '@/components/atom/topNavBar';
-// import { DeletePB } from '@/components/atom/deletePB';
-// import { getServerSession } from "next-auth/next"
-// import { authOptions } from '@/lib/auth';
+import TopNavBar from '@/components/atom/topNavBar';
+import { DeletePB } from '@/components/atom/deletePB';
+import { getServerSession } from "next-auth/next"
+import { authOptions } from '@/lib/auth';
 
-// import { EditPB } from '@/components/atom/editPB';
-// import { GetAllRecords } from '../../../../utils/getAllRecords';
+import { EditPB } from '@/components/atom/editPB';
+import { GetAllRecords } from '../../../../utils/getAllRecords';
 
 
 // export async function generateStaticParams() {
@@ -45,12 +45,14 @@
 //         }
 
 // }
-   
-export default async function BestRecordPage({ params }: { params: { id: string } }) {
-    return (
-        <h1>Hi</h1>
+export default async function BestRecordPage() {
+    return(
+        <h1>"Jo"</h1>
     )
+
 }
+// export default async function BestRecordPage({ params }: { params: { id: string } }) {
+    
 //     const session = await getServerSession(authOptions)
 //     const userEmail = session?.user.email?.toString();
     
