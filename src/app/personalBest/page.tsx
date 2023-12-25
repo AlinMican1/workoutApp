@@ -28,7 +28,7 @@ export default async function PersonalBestPage() {
         console.error('Failed to fetch data');
       }
       
-    console.log(records.PersonalBests.length)
+    
     return(
         <Provider session={session}>
             <TopNavBar>
