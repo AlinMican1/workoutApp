@@ -20,7 +20,7 @@ export default async function WorkoutPlanPage() {
     }
 
     let plans;
-    const response = await fetch (process.env.URL + '/api/user/newPlan/Find',{
+    const response = await fetch (process.env.NEXTAUTH_URL + '/api/user/newPlan/Find',{
       method: 'POST',
       body: JSON.stringify({
         userEmail: session?.user.email as String,

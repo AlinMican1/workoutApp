@@ -12,7 +12,7 @@ export default async function PersonalBestPage() {
     const session = await getServerSession(authOptions)
     
     let records;
-    const response = await fetch (process.env.URL + '/api/user/newRecord/Find',{
+    const response = await fetch (process.env.NEXTAUTH_URL + '/api/user/newRecord/Find',{
         method: 'POST',
         body: JSON.stringify({
         userEmail: session?.user.email as String,

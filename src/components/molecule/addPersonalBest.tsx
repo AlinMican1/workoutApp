@@ -71,11 +71,9 @@ function AddPersonalRecord (){
         }
         
         else {
-        
             setExerciseTitleError(false);
             setExerciseTitleErrorMsg('');
           }
-        
         if(weight === '') {
             setWeightError(true);
             setWeightErrorMsg('Insert a weight'); 
