@@ -45,7 +45,7 @@ import { GetAllRecords } from '../../../../utils/getAllRecords';
 //         }
 
 // }
-export default async function BestRecordPage() {
+export default function BestRecordPage() {
     return(
         <h1>"Jo"</h1>
     )
