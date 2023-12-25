@@ -46,8 +46,11 @@
 
 // }
    
-// export default async function BestRecordPage({ params }: { params: { id: string } }) {
-    
+export default async function BestRecordPage({ params }: { params: { id: string } }) {
+    return (
+        <h1>Hi</h1>
+    )
+}
 //     const session = await getServerSession(authOptions)
 //     const userEmail = session?.user.email?.toString();
     
