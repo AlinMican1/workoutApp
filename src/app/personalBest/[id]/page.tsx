@@ -12,16 +12,16 @@ import { EditPB } from '@/components/atom/editPB';
 import { GetAllRecords } from '../../../../utils/getAllRecords';
 
 
-export async function generateStaticParams() {
-    const bestRecords = await fetch(process.env.URL + '/api/user/newRecord/Find');
-    const data = await bestRecords.json();
+// export async function generateStaticParams() {
+//     const bestRecords = await fetch(process.env.URL + '/api/user/newRecord/Find');
+//     const data = await bestRecords.json();
     
-    return data.map((record:any) =>{
-        record.id
-    })
+//     return data.map((record:any) =>{
+//         record.id
+//     })
     
     
-  }
+//   }
 
 //Get only the Record with that id
 async function getBestRecord(id:string,userEmail:string){

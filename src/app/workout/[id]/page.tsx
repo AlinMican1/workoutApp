@@ -53,7 +53,7 @@ async function getPlan(id:string,userEmail:string){
 
 
 async function getScheduleCard(WorkoutId: string) {
-  const response = await fetch(process.env.URL + `/api/user/newSchedule/Find/${WorkoutId}`, {
+  const response = await fetch(process.env.NEXTAUTH_URL + `/api/user/newSchedule/Find/${WorkoutId}`, {
     method: 'GET', // Use the GET method
     headers: {
       "Content-Type": "application/json",
