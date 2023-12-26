@@ -31,7 +31,7 @@ import { GetAllPlans } from '../../../../utils/getAllPlans'
 async function getPlan(id:string,userEmail:string){
     
   
-  const response = await fetch(process.env.NEXTAUTH_URL + `/api/user/newPlan/Find/${id}`,{
+  const response = await fetch( process.env.NEXTAUTH_URL + `/api/user/newPlan/Find/${id}`,{
       method: 'POST',
       body: JSON.stringify({
           userEmail,

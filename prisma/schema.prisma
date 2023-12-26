@@ -1,85 +1,67 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
- 
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  //shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model Account {
-  id String @id @default(uuid())
-  email String
+  id       String @id @default(uuid())
+  email    String
   password String
-
 }
 
 model User {
-  id       String @id @default(uuid())
-  email    String @unique
-  username String @unique
-  password String
-  WorkoutPlans WorkoutPlan[] 
+  id            String         @id @default(uuid())
+  email         String         @unique
+  username      String         @unique
+  password      String
   PersonalBests PersonalBest[]
+  WorkoutPlans  WorkoutPlan[]
 }
 
 model WorkoutPlan {
-  id        String   @id @default(uuid())
-  title     String   
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  plan      User @relation(fields: [planId], references: [id], onDelete: Cascade)
-  planId    String
+  id            String         @id @default(uuid())
+  title         String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  planId        String
   ScheduleCards ScheduleCard[]
-  
+  plan          User           @relation(fields: [planId], references: [id], onDelete: Cascade)
+
   @@index([planId])
 }
-model ScheduleCard{
-    id        String   @id @default(uuid())
-    day       String
-    exerciseTitle String
-    weight    Decimal
-    sets      Int
-    reps      Int
-    firstWeight Decimal
-    firstSet Int
-    firstRep Int
-    
-    createdAt  DateTime @default(now())
-    updatedAt DateTime? @updatedAt
-    Schedule  WorkoutPlan @relation(fields:[ScheduleID], references: [id],  onDelete: Cascade)
-    
-    ScheduleID String
-   
-    //ScheduleCardWeights ScheduleCardWeight[]
-    @@index([ScheduleID])
+
+model ScheduleCard {
+  id            String      @id @default(uuid())
+  day           String
+  exerciseTitle String
+  weight        Decimal
+  sets          Int
+  reps          Int
+  firstWeight   Decimal
+  firstSet      Int
+  firstRep      Int
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime?   @updatedAt
+  ScheduleID    String
+  Schedule      WorkoutPlan @relation(fields: [ScheduleID], references: [id], onDelete: Cascade)
+
+  @@index([ScheduleID])
 }
 
+model PersonalBest {
+  id            String   @id @default(uuid())
+  exerciseTitle String
+  weight        Decimal
+  color         String   @default("boxDarkPink")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  recordId      String
+  record        User     @relation(fields: [recordId], references: [id])
 
-// model ScheduleCardWeight{
-//     id        String   @id @default(uuid())
-//     weight    Int
-//     sets      Int
-//     reps      Int
-//     ScheduleRecords ScheduleCard @relation(fields: [ScheduleRecordsID], references: [id])
-//     ScheduleRecordsID String
-    
-//     @@index([ScheduleRecordsID])
-// }
-model PersonalBest{
-  id        String   @id @default(uuid())
-  exerciseTitle  String
-  weight    Decimal
-  color     String @default("boxDarkPink")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  record    User @relation(fields: [recordId], references: [id])
-  recordId  String
-  
   @@index([recordId])
-
 }
