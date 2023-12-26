@@ -26,7 +26,7 @@ import { GetAllRecords } from '../../../../utils/getAllRecords';
 //Get only the Record with that id
 async function getBestRecord(id:string,userEmail:string){
     
-    const response = await fetch(process.env.URL + `/api/user/newRecord/Find/${id}`,{
+    const response = await fetch(process.env.NEXTAUTH_URL + `/api/user/newRecord/Find/${id}`,{
         method: 'POST',
         body: JSON.stringify({
             userEmail,

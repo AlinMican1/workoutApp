@@ -74,7 +74,6 @@ async function getScheduleCard(WorkoutId: string) {
 export default async function WorkoutPlanSchedule({ params }: { params: { id: string } }){
   
   await GetAllPlans(params.id)
-  console.log(GetAllPlans(params.id))
   const session = await getServerSession(authOptions)
   const userEmail = session?.user.email?.toString();
   
